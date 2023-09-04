@@ -8,18 +8,20 @@
 import Foundation
 
 struct Event: Identifiable {
-  let id = UUID()
+  let id: Int
   var startDate: Date
   var endDate: Date
   var eventType: EventType?
 
   init() {
+    self.id = 0
     self.startDate = Date()
     self.endDate = Date()
     self.eventType = nil
   }
 
-  init(startDate: Date, endDate: Date, eventType: EventType?) {
+  init(id: Int, startDate: Date, endDate: Date, eventType: EventType?) {
+    self.id = id
     self.startDate = startDate
     self.endDate = endDate
     self.eventType = eventType

@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		724ADDD42AA087B10032E61F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724ADDD32AA087B10032E61F /* SettingsView.swift */; };
 		724ADDD72AA08E510032E61F /* Colors+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724ADDD62AA08E510032E61F /* Colors+Extension.swift */; };
-		724ADDD92AA090400032E61F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 724ADDD82AA090400032E61F /* README.md */; };
 		72911D302AA03D1E0090FE60 /* BetterHoursApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72911D2F2AA03D1E0090FE60 /* BetterHoursApp.swift */; };
 		72911D342AA03D1F0090FE60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 72911D332AA03D1F0090FE60 /* Assets.xcassets */; };
 		72911D372AA03D1F0090FE60 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 72911D362AA03D1F0090FE60 /* Preview Assets.xcassets */; };
@@ -24,7 +23,6 @@
 /* Begin PBXFileReference section */
 		724ADDD32AA087B10032E61F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		724ADDD62AA08E510032E61F /* Colors+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+Extension.swift"; sourceTree = "<group>"; };
-		724ADDD82AA090400032E61F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		72911D2C2AA03D1E0090FE60 /* BetterHours.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BetterHours.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		72911D2F2AA03D1E0090FE60 /* BetterHoursApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetterHoursApp.swift; sourceTree = "<group>"; };
 		72911D332AA03D1F0090FE60 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -81,7 +79,6 @@
 				72911D2F2AA03D1E0090FE60 /* BetterHoursApp.swift */,
 				72911D332AA03D1F0090FE60 /* Assets.xcassets */,
 				72911D352AA03D1F0090FE60 /* Preview Content */,
-				724ADDD82AA090400032E61F /* README.md */,
 			);
 			path = BetterHours;
 			sourceTree = "<group>";
@@ -173,7 +170,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				724ADDD92AA090400032E61F /* README.md in Resources */,
 				72911D372AA03D1F0090FE60 /* Preview Assets.xcassets in Resources */,
 				72911D342AA03D1F0090FE60 /* Assets.xcassets in Resources */,
 			);

@@ -12,9 +12,9 @@ struct EventView: View {
 
   var body: some View {
     Text(eventType.title)
-      .padding(4)
-      .frame(maxWidth: .infinity, minHeight: 50)
+      .frame(maxWidth: .infinity, minHeight: 60)
       .foregroundStyle(.foreground)
+      .background(.gray)
       .clipShape(RoundedRectangle(cornerRadius: 4))
   }
 }

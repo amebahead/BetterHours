@@ -8,23 +8,39 @@
 import SwiftUI
 
 struct EventPickerView: View {
-  @Binding var selection: EventType?
+  @Binding var events: [Event]
   @Binding var isPresentingEventPickerView: Bool
+  @Binding var selectedId: Int
 
-  let events = EventType.allCases
+  let eventTypes = EventType.allCases
 
   var body: some View {
-    List(events) { event in
-      EventView(eventType: event)
-        .onTapGesture {
-          isPresentingEventPickerView = false
-          selection = event
-        }
+    VStack {
+      ForEach(eventTypes, id: \.self) { eventType in
+        EventView(eventType: eventType)
+          .padding(8)
+          .onTapGesture {
+            isPresentingEventPickerView = false
+
+            var isExist = false
+            for event in events {
+              if event.id == selectedId {
+                isExist = true
+                break
+              }
+            }
+
+            if isExist {
+              events.remove(at: selectedId)
+            }
+
+            events.append(Event(id: selectedId, startDate: dateFrom(2023, 8, 31, selectedId), endDate: dateFrom(2023, 8, 31, selectedId+1), eventType: eventType))
+          }
+      }
     }
-    .listStyle(.plain)
   }
 }
 
-#Preview {
-  EventPickerView(selection: .constant(.exercise), isPresentingEventPickerView: .constant(false))
-}
+//#Preview {
+//  EventPickerView(selection: .constant(.exercise), isPresentingEventPickerView: .constant(false))
+//}

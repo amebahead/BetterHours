@@ -10,15 +10,10 @@ import SwiftUI
 
 struct TimeEventView: View {
   @State private var isPresentingEventPickerView = false
+  @State private var selectedId: Int = 0
   let today: Date = Date()
 
-  @State private var events: [Event] = [
-    Event(startDate: dateFrom(2023,8,31,0), endDate: dateFrom(2023,8,31,1), eventType: .exercise),
-    Event(startDate: dateFrom(2023,8,31,3), endDate: dateFrom(2023,8,31,5), eventType: .freetime),
-    Event(startDate: dateFrom(2023,8,31,6), endDate: dateFrom(2023,8,31,7), eventType: .lecture),
-    Event(startDate: dateFrom(2023,8,31,12), endDate: dateFrom(2023,8,31,13), eventType: .meeting),
-    Event(startDate: dateFrom(2023,8,31,18), endDate: dateFrom(2023,8,31,22), eventType: .study),
-  ]
+  @State private var events: [Event] = []
 
   let hourHeight = 50.0
 
@@ -37,7 +32,6 @@ struct TimeEventView: View {
 
       ScrollView {
         ZStack(alignment: .topLeading) {
-
           VStack(alignment: .leading, spacing: 0) {
             ForEach(0..<25) { hour in
               HStack {
@@ -49,10 +43,12 @@ struct TimeEventView: View {
                   .opacity(0.4)
               }
               .frame(height: hourHeight)
-              .background(.black)
+              .background(Color.random())
               .onTapGesture {
-                isPresentingEventPickerView = true
                 print("blankCell")
+                selectedId = hour
+//                isPresentingEventPickerView = true
+                print(selectedId)
               }
             }
           }
@@ -60,8 +56,10 @@ struct TimeEventView: View {
           ForEach(events) { event in
             eventCell(event)
               .onTapGesture {
-                isPresentingEventPickerView = true
                 print("eventCell")
+                selectedId = event.id
+//                isPresentingEventPickerView = true
+                print(selectedId)
               }
           }
         }
@@ -69,7 +67,7 @@ struct TimeEventView: View {
     }
     .padding()
     .sheet(isPresented: $isPresentingEventPickerView) {
-      EventPickerView(selection: $events.first!.eventType, isPresentingEventPickerView: $isPresentingEventPickerView)
+      EventPickerView(events: $events, isPresentingEventPickerView: $isPresentingEventPickerView, selectedId: $selectedId)
     }
   }
 
@@ -80,7 +78,6 @@ struct TimeEventView: View {
     let calendar = Calendar.current
     let hour = calendar.component(.hour, from: event.startDate)
     let offset = Double(hour) * (hourHeight)
-    //    print(hour, minute, Double(hour-7) + Double(minute)/60 )
 
     return VStack(alignment: .leading) {
       Text(event.eventType?.title ?? "").bold()
@@ -100,9 +97,9 @@ struct TimeEventView: View {
 
 }
 
-func dateFrom(_ year: Int, _ month: Int, _ day: Int, _ hour: Int, _ minute: Int = 0) -> Date {
+func dateFrom(_ year: Int, _ month: Int, _ day: Int, _ hour: Int) -> Date {
   let calendar = Calendar.current
-  let dateComponents = DateComponents(year: year, month: month, day: day, hour: hour, minute: minute)
+  let dateComponents = DateComponents(year: year, month: month, day: day, hour: hour, minute: 0)
   return calendar.date(from: dateComponents) ?? .now
 }
 
