@@ -43,11 +43,11 @@ struct TimeEventView: View {
                   .opacity(0.4)
               }
               .frame(height: hourHeight)
-              .background(Color.random())
+              .background(Color(UIColor.systemBackground))
               .onTapGesture {
                 print("blankCell")
                 selectedId = hour
-//                isPresentingEventPickerView = true
+                isPresentingEventPickerView = true
                 print(selectedId)
               }
             }
@@ -58,7 +58,7 @@ struct TimeEventView: View {
               .onTapGesture {
                 print("eventCell")
                 selectedId = event.id
-//                isPresentingEventPickerView = true
+                isPresentingEventPickerView = true
                 print(selectedId)
               }
           }
@@ -91,7 +91,7 @@ struct TimeEventView: View {
         .fill(Color.random()).opacity(0.4)
     )
     .padding(.trailing, 30)
-    .offset(x: 42, y: offset + 24)
+    .offset(x: 42, y: offset)
 
   }
 
