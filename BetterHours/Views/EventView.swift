@@ -14,7 +14,7 @@ struct EventView: View {
     Text(eventType.title)
       .frame(maxWidth: .infinity, minHeight: 60)
       .foregroundStyle(.foreground)
-      .background(.gray)
+      .background(Color(UIColor.lightGray).opacity(0.3))
       .clipShape(RoundedRectangle(cornerRadius: 4))
   }
 }
