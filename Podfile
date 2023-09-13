@@ -6,6 +6,5 @@ target 'BetterHours' do
   use_frameworks!
 
   # Pods for BetterHours
-  pod 'RealmSwift'
 
 end
