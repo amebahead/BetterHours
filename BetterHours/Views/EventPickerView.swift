@@ -43,7 +43,3 @@ struct EventPickerView: View {
     }
   }
 }
-
-//#Preview {
-//  EventPickerView(selection: .constant(.exercise), isPresentingEventPickerView: .constant(false))
-//}

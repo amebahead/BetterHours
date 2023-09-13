@@ -103,7 +103,12 @@ struct TimeEventView: View {
 // MARK: Functions
 func dateFrom(hour: Int) -> Date {
   let calendar = Calendar.current
-  return calendar.date(bySetting: .hour, value: hour, of: Date()) ?? Date()
+  let today = Date()
+  let year = calendar.dateComponents([.year], from: today).year ?? 0
+  let month = calendar.dateComponents([.month], from: today).month ?? 0
+  let day = calendar.dateComponents([.day], from: today).day ?? 0
+  let dateComponents = DateComponents(year: year, month: month, day: day, hour: hour, minute: 0)
+  return calendar.date(from: dateComponents) ?? .now
 }
 
 func dateFrom(_ year: Int, _ month: Int, _ day: Int, _ hour: Int) -> Date {
@@ -133,8 +138,3 @@ func saveEvent(events: [Event]) {
     defaults.setValue(encodedEvents, forKey: "events")
   }
 }
-
-#Preview {
-  TimeEventView()
-}
-

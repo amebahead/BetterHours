@@ -18,7 +18,3 @@ struct EventView: View {
       .clipShape(RoundedRectangle(cornerRadius: 4))
   }
 }
-
-#Preview {
-  EventView(eventType: .exercise)
-}

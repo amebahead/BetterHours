@@ -25,7 +25,3 @@ struct DailyEventView: View {
     }
   }
 }
-
-#Preview {
-  DailyEventView()
-}
