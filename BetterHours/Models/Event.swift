@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct Event: Identifiable {
+struct Event: Identifiable, Codable {
   let id: Int
   var startDate: Date
   var endDate: Date
-  var eventType: EventType?
+  var eventType: String?
 
   init() {
     self.id = 0
@@ -20,7 +20,7 @@ struct Event: Identifiable {
     self.eventType = nil
   }
 
-  init(id: Int, startDate: Date, endDate: Date, eventType: EventType?) {
+  init(id: Int, startDate: Date, endDate: Date, eventType: String?) {
     self.id = id
     self.startDate = startDate
     self.endDate = endDate

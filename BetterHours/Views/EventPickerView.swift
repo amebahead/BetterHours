@@ -22,19 +22,22 @@ struct EventPickerView: View {
           .onTapGesture {
             isPresentingEventPickerView = false
 
-            var isExist = false
-            for event in events {
+            var existIndex: Int? = nil
+            for (index, event) in events.enumerated() {
               if event.id == selectedId {
-                isExist = true
+                existIndex = index
                 break
               }
             }
 
-            if isExist {
-              events.remove(at: selectedId)
+            if let index = existIndex {
+              events.remove(at: index)
             }
 
-            events.append(Event(id: selectedId, startDate: dateFrom(2023, 8, 31, selectedId), endDate: dateFrom(2023, 8, 31, selectedId+1), eventType: eventType))
+            events.append(Event(id: selectedId, startDate: dateFrom(hour: selectedId), endDate: dateFrom(hour: selectedId+1), eventType: eventType.title))
+
+            // Saved UserDefaults
+            saveEvent(events: events)
           }
       }
     }

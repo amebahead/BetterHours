@@ -69,6 +69,10 @@ struct TimeEventView: View {
     .sheet(isPresented: $isPresentingEventPickerView) {
       EventPickerView(events: $events, isPresentingEventPickerView: $isPresentingEventPickerView, selectedId: $selectedId)
     }
+    .onAppear {
+      events = readEvents()
+      print(events)
+    }
   }
 
   func eventCell(_ event: Event) -> some View {
@@ -80,7 +84,7 @@ struct TimeEventView: View {
     let offset = Double(hour) * (hourHeight)
 
     return VStack(alignment: .leading) {
-      Text(event.eventType?.title ?? "").bold()
+      Text(event.eventType ?? "").bold()
     }
     .font(.caption)
     .frame(maxWidth: .infinity, alignment: .leading)
@@ -92,15 +96,42 @@ struct TimeEventView: View {
     )
     .padding(.trailing, 30)
     .offset(x: 42, y: offset)
-
   }
+}
 
+
+// MARK: Functions
+func dateFrom(hour: Int) -> Date {
+  let calendar = Calendar.current
+  return calendar.date(bySetting: .hour, value: hour, of: Date()) ?? Date()
 }
 
 func dateFrom(_ year: Int, _ month: Int, _ day: Int, _ hour: Int) -> Date {
   let calendar = Calendar.current
   let dateComponents = DateComponents(year: year, month: month, day: day, hour: hour, minute: 0)
   return calendar.date(from: dateComponents) ?? .now
+}
+
+func readEvents() -> [Event] {
+  let defaults = UserDefaults.standard
+  if let data = defaults.object(forKey: "events") as? Data {
+    if let events = try? JSONDecoder().decode([Event].self, from: data) {
+      print(events)
+      return events
+    }
+  }
+  return []
+}
+
+func saveEvent(events: [Event]) {
+  let defaults = UserDefaults.standard
+  // Remove
+  defaults.removeObject(forKey: "events")
+
+  // Add
+  if let encodedEvents = try? JSONEncoder().encode(events) {
+    defaults.setValue(encodedEvents, forKey: "events")
+  }
 }
 
 #Preview {
