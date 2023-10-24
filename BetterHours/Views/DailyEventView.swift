@@ -8,18 +8,14 @@
 import SwiftUI
 
 struct DailyEventView: View {
-
   var body: some View {
-    NavigationStack {
+    NavigationView {
       TimeEventView()
         .toolbar {
-          NavigationLink(destination: SettingsView()) {
-            Button(action: {
-              print("edit")
-            }) {
-              Image(systemName: "gearshape")
+          ToolbarItemGroup(placement: .topBarTrailing) {
+            NavigationLink(destination: SettingsView()) {
+              Text("Add Event")
             }
-            .accessibilityLabel("Edit Settings")
           }
         }
     }

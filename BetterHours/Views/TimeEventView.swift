@@ -13,9 +13,10 @@ struct TimeEventView: View {
   @State private var selectedId: Int = 0
   let today: Date = Date()
 
-  @State private var events: [Event] = []
+  @State private var eventIdentys: [EventIdenty] = []
 
-  let hourHeight = 50.0
+  let hourHeight: CGFloat = 50.0
+  let lineHeight: CGFloat = 1.0
 
   var body: some View {
     VStack(alignment: .leading) {
@@ -34,30 +35,35 @@ struct TimeEventView: View {
         ZStack(alignment: .topLeading) {
           VStack(alignment: .leading, spacing: 0) {
             ForEach(0..<25) { hour in
+              Color.gray
+                .frame(height: lineHeight)
+                .opacity(0.4)
+
               HStack {
                 Text("\(hour):00")
                   .font(.caption)
                   .frame(width: 35, alignment: .trailing)
+
                 Color.gray
-                  .frame(height: 1)
-                  .opacity(0.4)
+                  .frame(height: lineHeight)
+                  .opacity(0.0)
               }
               .frame(height: hourHeight)
               .background(Color(UIColor.systemBackground))
               .onTapGesture {
                 print("blankCell")
+                print(selectedId)
                 selectedId = hour
                 isPresentingEventPickerView = true
-                print(selectedId)
               }
             }
           }
 
-          ForEach(events) { event in
-            eventCell(event)
+          ForEach(eventIdentys) { eventIdenty in
+            eventCell(eventIdenty)
               .onTapGesture {
                 print("eventCell")
-                selectedId = event.id
+                selectedId = eventIdenty.id
                 isPresentingEventPickerView = true
                 print(selectedId)
               }
@@ -67,29 +73,27 @@ struct TimeEventView: View {
     }
     .padding()
     .sheet(isPresented: $isPresentingEventPickerView) {
-      EventPickerView(events: $events, isPresentingEventPickerView: $isPresentingEventPickerView, selectedId: $selectedId)
+      EventPickerView(eventIdentys: $eventIdentys, selectedId: $selectedId, isPresentingEventPickerView: $isPresentingEventPickerView)
     }
     .onAppear {
-      events = readEvents()
-      print(events)
+      eventIdentys = readEventIdentys()
+      print(eventIdentys)
     }
   }
 
-  func eventCell(_ event: Event) -> some View {
-    let duration = event.endDate.timeIntervalSince(event.startDate)
-    let height = duration / 60 / 60 * hourHeight
+  func eventCell(_ eventIdenty: EventIdenty) -> some View {
+    let id = CGFloat(eventIdenty.id)
+    let lineHeight = id + 1
+    let offset = (id * hourHeight) + lineHeight - 25.0
 
-    let calendar = Calendar.current
-    let hour = calendar.component(.hour, from: event.startDate)
-    let offset = Double(hour) * (hourHeight)
-
-    return VStack(alignment: .leading) {
-      Text(event.eventType ?? "").bold()
+    return VStack(alignment: .leading, spacing: 10.0) {
+      Text(eventIdenty.event.category?.title ?? "").bold()
+      Text(eventIdenty.event.detail ?? "")
     }
     .font(.caption)
     .frame(maxWidth: .infinity, alignment: .leading)
     .padding(4)
-    .frame(height: height, alignment: .top)
+    .frame(height: hourHeight, alignment: .top)
     .background(
       RoundedRectangle(cornerRadius: 2)
         .fill(Color.random()).opacity(0.4)
@@ -117,6 +121,28 @@ func dateFrom(_ year: Int, _ month: Int, _ day: Int, _ hour: Int) -> Date {
   return calendar.date(from: dateComponents) ?? .now
 }
 
+func readEventIdentys() -> [EventIdenty] {
+  let defaults = UserDefaults.standard
+  if let data = defaults.object(forKey: "eventIdentys") as? Data {
+    if let eventIdentys = try? JSONDecoder().decode([EventIdenty].self, from: data) {
+      print(eventIdentys)
+      return eventIdentys
+    }
+  }
+  return []
+}
+
+func saveEventIdentys(eventIdentys: [EventIdenty]) {
+  let defaults = UserDefaults.standard
+  // Remove
+  defaults.removeObject(forKey: "eventIdentys")
+
+  // Add
+  if let encodedEvents = try? JSONEncoder().encode(eventIdentys) {
+    defaults.setValue(encodedEvents, forKey: "eventIdentys")
+  }
+}
+
 func readEvents() -> [Event] {
   let defaults = UserDefaults.standard
   if let data = defaults.object(forKey: "events") as? Data {
@@ -128,7 +154,7 @@ func readEvents() -> [Event] {
   return []
 }
 
-func saveEvent(events: [Event]) {
+func saveEvents(events: [Event]) {
   let defaults = UserDefaults.standard
   // Remove
   defaults.removeObject(forKey: "events")

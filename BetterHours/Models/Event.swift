@@ -8,22 +8,12 @@
 import Foundation
 
 struct Event: Identifiable, Codable {
-  let id: Int
-  var startDate: Date
-  var endDate: Date
-  var eventType: String?
+  var id = UUID()
+  var category: Category?
+  var detail: String?
 
-  init() {
-    self.id = 0
-    self.startDate = Date()
-    self.endDate = Date()
-    self.eventType = nil
-  }
-
-  init(id: Int, startDate: Date, endDate: Date, eventType: String?) {
-    self.id = id
-    self.startDate = startDate
-    self.endDate = endDate
-    self.eventType = eventType
+  init(category: Category?, detail: String?) {
+    self.category = category
+    self.detail = detail
   }
 }

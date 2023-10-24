@@ -7,15 +7,13 @@
 
 import SwiftUI
 
-enum EventType: String, CaseIterable, Identifiable {
+enum Category: String, CaseIterable, Identifiable, Codable {
   case work = "업무"
   case study = "학습"
   case lecture = "강의"
   case meeting = "모임"
   case exercise = "운동"
-  case reading = "독서"
-  case freetime = "여가"
-  case personal = "개인적 활동"
+  case living = "생활"
 
   var title: String {
     rawValue

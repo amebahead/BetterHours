@@ -7,39 +7,64 @@
 
 import SwiftUI
 
-struct EventPickerView: View {
-  @Binding var events: [Event]
-  @Binding var isPresentingEventPickerView: Bool
-  @Binding var selectedId: Int
+let sampleItems = [
+  Event(category: .work, detail: "일과 관련된 내용입니다."),
+  Event(category: .lecture, detail: "학습에 대한 설명입니다."),
+  Event(category: .exercise, detail: "운동 정보입니다."),
+  Event(category: .study, detail: "독서 내용입니다."),
+  Event(category: .living, detail: "생활 팁입니다.")
+]
 
-  let eventTypes = EventType.allCases
+struct EventPickerView: View {
+
+  @Binding var eventIdentys: [EventIdenty]
+  @Binding var selectedId: Int
+  @Binding var isPresentingEventPickerView: Bool
+
+  @State private var events: [Event] = []
+
+  // 그리드 레이아웃 설정
+  var columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
 
   var body: some View {
-    VStack {
-      ForEach(eventTypes, id: \.self) { eventType in
-        EventView(eventType: eventType)
-          .padding(8)
+    ScrollView {
+      LazyVGrid(columns: columns, spacing: 20) {
+        ForEach(events) { event in
+          VStack(alignment: .leading) {
+            Text(event.category?.title ?? "")
+              .font(.headline)
+            Text(event.detail ?? "")
+              .font(.subheadline)
+              .foregroundColor(.secondary)
+          }
+          .padding()
+          .background(RoundedRectangle(cornerRadius: 10).fill(Color.gray.opacity(0.2)))
           .onTapGesture {
-            isPresentingEventPickerView = false
-
             var existIndex: Int? = nil
-            for (index, event) in events.enumerated() {
-              if event.id == selectedId {
+            for (index, eventIdenty) in eventIdentys.enumerated() {
+              if eventIdenty.id == selectedId {
                 existIndex = index
                 break
               }
             }
 
             if let index = existIndex {
-              events.remove(at: index)
+              eventIdentys.remove(at: index)
             }
-
-            events.append(Event(id: selectedId, startDate: dateFrom(hour: selectedId), endDate: dateFrom(hour: selectedId+1), eventType: eventType.title))
+            eventIdentys.append(EventIdenty(id: selectedId, event: event))
 
             // Saved UserDefaults
-            saveEvent(events: events)
+            saveEventIdentys(eventIdentys: eventIdentys)
+
+            isPresentingEventPickerView = false
           }
+        }
       }
+      .padding()
+    }
+    .onAppear {
+      events = readEvents() + sampleItems
+      print(events)
     }
   }
 }
