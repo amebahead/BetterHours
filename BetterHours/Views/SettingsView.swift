@@ -31,11 +31,6 @@ struct SettingsView: View {
       }
       .navigationBarItems(trailing: Button("저장") {
         guard !detail.isEmpty else { return }
-
-        print("저장")
-        print(selectedCategory)
-        print(detail)
-
         var events = readEvents()
         events.append(Event(category: selectedCategory, detail: detail))
 

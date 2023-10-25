@@ -9,10 +9,15 @@ import Foundation
 
 struct BetterHour: Codable {
   var date: Date
-  var eventIdenty: [EventIdenty]
+  var eventIdentys: [EventIdenty]
 
   init() {
     self.date = Date()
-    self.eventIdenty = [EventIdenty]()
+    self.eventIdentys = [EventIdenty]()
+  }
+
+  init(date: Date, eventIdentys: [EventIdenty]) {
+    self.date = date
+    self.eventIdentys = eventIdentys
   }
 }

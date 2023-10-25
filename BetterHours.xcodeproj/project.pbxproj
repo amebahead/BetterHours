@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D708FCA2AE7A066006D2085 /* BetterHour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D708FC92AE7A066006D2085 /* BetterHour.swift */; };
+		4D708FCC2AE7A117006D2085 /* Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D708FCB2AE7A117006D2085 /* Events.swift */; };
 		5EECC18F0BEA2639AC0561C8 /* Pods_BetterHours.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F808F0C555B20686F0DFC0C6 /* Pods_BetterHours.framework */; };
 		724ADDD42AA087B10032E61F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724ADDD32AA087B10032E61F /* SettingsView.swift */; };
 		724ADDD72AA08E510032E61F /* Colors+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724ADDD62AA08E510032E61F /* Colors+Extension.swift */; };
@@ -16,13 +18,14 @@
 		72911D402AA05F1E0090FE60 /* DailyEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72911D3F2AA05F1E0090FE60 /* DailyEventView.swift */; };
 		72911D422AA064A00090FE60 /* TimeEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72911D412AA064A00090FE60 /* TimeEventView.swift */; };
 		72911D442AA071980090FE60 /* EventPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72911D432AA071980090FE60 /* EventPickerView.swift */; };
-		72911D462AA075BE0090FE60 /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72911D452AA075BE0090FE60 /* EventView.swift */; };
-		72911D482AA077060090FE60 /* EventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72911D472AA077060090FE60 /* EventType.swift */; };
+		72911D482AA077060090FE60 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72911D472AA077060090FE60 /* Category.swift */; };
 		72911D4A2AA07AB50090FE60 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72911D492AA07AB50090FE60 /* Event.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		30AC3B442185814113464549 /* Pods-BetterHours.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BetterHours.release.xcconfig"; path = "Target Support Files/Pods-BetterHours/Pods-BetterHours.release.xcconfig"; sourceTree = "<group>"; };
+		4D708FC92AE7A066006D2085 /* BetterHour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetterHour.swift; sourceTree = "<group>"; };
+		4D708FCB2AE7A117006D2085 /* Events.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Events.swift; sourceTree = "<group>"; };
 		724ADDD32AA087B10032E61F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		724ADDD62AA08E510032E61F /* Colors+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+Extension.swift"; sourceTree = "<group>"; };
 		72911D2C2AA03D1E0090FE60 /* BetterHours.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BetterHours.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -32,8 +35,7 @@
 		72911D3F2AA05F1E0090FE60 /* DailyEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyEventView.swift; sourceTree = "<group>"; };
 		72911D412AA064A00090FE60 /* TimeEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeEventView.swift; sourceTree = "<group>"; };
 		72911D432AA071980090FE60 /* EventPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPickerView.swift; sourceTree = "<group>"; };
-		72911D452AA075BE0090FE60 /* EventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventView.swift; sourceTree = "<group>"; };
-		72911D472AA077060090FE60 /* EventType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventType.swift; sourceTree = "<group>"; };
+		72911D472AA077060090FE60 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		72911D492AA07AB50090FE60 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		836D024EB16D1788537EA87E /* Pods-BetterHours.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BetterHours.debug.xcconfig"; path = "Target Support Files/Pods-BetterHours/Pods-BetterHours.debug.xcconfig"; sourceTree = "<group>"; };
 		F808F0C555B20686F0DFC0C6 /* Pods_BetterHours.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BetterHours.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -104,7 +106,6 @@
 				72911D3F2AA05F1E0090FE60 /* DailyEventView.swift */,
 				72911D412AA064A00090FE60 /* TimeEventView.swift */,
 				72911D432AA071980090FE60 /* EventPickerView.swift */,
-				72911D452AA075BE0090FE60 /* EventView.swift */,
 				724ADDD32AA087B10032E61F /* SettingsView.swift */,
 			);
 			path = Views;
@@ -113,8 +114,10 @@
 		72911D3E2AA05E690090FE60 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				72911D472AA077060090FE60 /* EventType.swift */,
+				72911D472AA077060090FE60 /* Category.swift */,
 				72911D492AA07AB50090FE60 /* Event.swift */,
+				4D708FC92AE7A066006D2085 /* BetterHour.swift */,
+				4D708FCB2AE7A117006D2085 /* Events.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -235,12 +238,13 @@
 				724ADDD72AA08E510032E61F /* Colors+Extension.swift in Sources */,
 				72911D302AA03D1E0090FE60 /* BetterHoursApp.swift in Sources */,
 				724ADDD42AA087B10032E61F /* SettingsView.swift in Sources */,
+				4D708FCA2AE7A066006D2085 /* BetterHour.swift in Sources */,
+				4D708FCC2AE7A117006D2085 /* Events.swift in Sources */,
 				72911D402AA05F1E0090FE60 /* DailyEventView.swift in Sources */,
 				72911D422AA064A00090FE60 /* TimeEventView.swift in Sources */,
 				72911D442AA071980090FE60 /* EventPickerView.swift in Sources */,
-				72911D482AA077060090FE60 /* EventType.swift in Sources */,
+				72911D482AA077060090FE60 /* Category.swift in Sources */,
 				72911D4A2AA07AB50090FE60 /* Event.swift in Sources */,
-				72911D462AA075BE0090FE60 /* EventView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,7 +303,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -356,7 +360,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
