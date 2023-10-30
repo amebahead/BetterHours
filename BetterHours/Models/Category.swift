@@ -22,4 +22,21 @@ enum Category: String, CaseIterable, Identifiable, Codable {
   var id: String {
     title
   }
+
+  var color: Color {
+    switch self {
+    case .work:
+      return .blue
+    case .study:
+      return .brown
+    case .lecture:
+      return .cyan
+    case .meeting:
+      return .gray
+    case .exercise:
+      return .indigo
+    case .living:
+      return .orange
+    }
+  }
 }

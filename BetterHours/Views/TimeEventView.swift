@@ -170,7 +170,7 @@ struct TimeEventView: View {
     .frame(height: hourHeight, alignment: .top)
     .background(
       RoundedRectangle(cornerRadius: 2)
-        .fill(Color.random()).opacity(0.4)
+        .fill(eventIdenty.event.category?.color ?? .clear).opacity(0.4)
     )
     .padding(.trailing, 30)
     .offset(x: 42, y: offset)
