@@ -1,5 +1,5 @@
 //
-//  Colors+Extension.swift
+//  Color+Extensions.swift
 //  BetterHours
 //
 //  Created by MacDole on 2023/08/31.

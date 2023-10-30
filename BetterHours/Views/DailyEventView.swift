@@ -12,7 +12,7 @@ struct DailyEventView: View {
     NavigationView {
       TimeEventView()
         .toolbar {
-          ToolbarItemGroup(placement: .topBarTrailing) {
+          ToolbarItemGroup(placement: .navigationBarTrailing) {
             NavigationLink(destination: SettingsView()) {
               Text("Add Event")
             }

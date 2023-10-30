@@ -139,22 +139,6 @@ struct TimeEventView: View {
 
 
 // MARK: Functions
-func dateFrom(hour: Int) -> Date {
-  let calendar = Calendar.current
-  let today = Date()
-  let year = calendar.dateComponents([.year], from: today).year ?? 0
-  let month = calendar.dateComponents([.month], from: today).month ?? 0
-  let day = calendar.dateComponents([.day], from: today).day ?? 0
-  let dateComponents = DateComponents(year: year, month: month, day: day, hour: hour, minute: 0)
-  return calendar.date(from: dateComponents) ?? .now
-}
-
-func dateFrom(_ year: Int, _ month: Int, _ day: Int, _ hour: Int) -> Date {
-  let calendar = Calendar.current
-  let dateComponents = DateComponents(year: year, month: month, day: day, hour: hour, minute: 0)
-  return calendar.date(from: dateComponents) ?? .now
-}
-
 func readBetterHours() -> [BetterHour] {
   let defaults = UserDefaults.standard
   if let data = defaults.object(forKey: "betterHours") as? Data {
@@ -168,7 +152,7 @@ func readBetterHours() -> [BetterHour] {
 func saveBetterHours(betterHours: [BetterHour]) {
   let defaults = UserDefaults.standard
   if let encoded = try? JSONEncoder().encode(betterHours) {
-    defaults.setValue(encoded, forKey: "betterHours")
+    defaults.set(encoded, forKey: "betterHours")
   }
 }
 
@@ -185,14 +169,6 @@ func readEvents() -> [Event] {
 func saveEvents(events: [Event]) {
   let defaults = UserDefaults.standard
   if let encodedEvents = try? JSONEncoder().encode(events) {
-    defaults.setValue(encodedEvents, forKey: "events")
+    defaults.set(encodedEvents, forKey: "events")
   }
-}
-
-func areDatesOnSameDay(_ date1: Date, _ date2: Date) -> Bool {
-  let calendar = Calendar.current
-  let components1 = calendar.dateComponents([.year, .month, .day], from: date1)
-  let components2 = calendar.dateComponents([.year, .month, .day], from: date2)
-
-  return components1.year == components2.year && components1.month == components2.month && components1.day == components2.day
 }
