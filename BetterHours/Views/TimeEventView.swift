@@ -43,7 +43,7 @@ struct TimeEventView: View {
       }
 
       // HeadView
-      TextField("오늘의 목표", text: $goal)
+      TextField("현재 목표", text: $goal)
         .padding()
         .font(.title3)
         .onChange(of: goal) { newValue in
