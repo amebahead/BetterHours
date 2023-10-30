@@ -73,7 +73,6 @@ struct EventPickerView: View {
 
             saveBetterHours(betterHours: newBetterHours)
 
-            // FIXME: Userdefaults set이 안정적이지가 않음.. 고칠 필요가 있을듯
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.0) {
               isPresentingEventPickerView = false
             }

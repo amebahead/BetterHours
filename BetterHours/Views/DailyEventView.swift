@@ -11,13 +11,6 @@ struct DailyEventView: View {
   var body: some View {
     NavigationView {
       TimeEventView()
-        .toolbar {
-          ToolbarItemGroup(placement: .navigationBarTrailing) {
-            NavigationLink(destination: SettingsView()) {
-              Text("Add Event")
-            }
-          }
-        }
     }
   }
 }

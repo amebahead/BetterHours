@@ -25,9 +25,7 @@ struct SettingsView: View {
 
         // 상세 내용 입력 TextEditor
         TextEditor(text: $detail)
-          .frame(height: 200)
-          .padding(4)
-          .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray, lineWidth: 1))
+          .frame(height: 200.0)
       }
       .navigationBarItems(trailing: Button("저장") {
         guard !detail.isEmpty else { return }

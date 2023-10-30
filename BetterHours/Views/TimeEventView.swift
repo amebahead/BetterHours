@@ -17,34 +17,17 @@ struct TimeEventView: View {
   @State private var isShowingDatePicker = false
   @State private var selectedDate = Date()
 
+  @State private var goal: String = ""
+
 
   let hourHeight: CGFloat = 50.0
   let lineHeight: CGFloat = 1.0
 
   var body: some View {
     VStack(alignment: .leading) {
-
-      // Date Headline
-      Button(action: {
-        isShowingDatePicker.toggle()
-      }, label: {
-        VStack {
-          Text("Today")
-            .bold()
-            .font(.title)
-
-          HStack {
-            Text(selectedDate.formatted(.dateTime.year()))
-            Text(selectedDate.formatted(.dateTime.day().month()))
-          }
-        }
-        .padding()
-        .foregroundColor(.white)
-      })
-
       if isShowingDatePicker {
         DatePicker("", selection: $selectedDate, displayedComponents: .date)
-          .datePickerStyle(.wheel)
+          .datePickerStyle(.graphical)
           .onChange(of: selectedDate) { newValue in
             isShowingDatePicker.toggle()
             
@@ -58,6 +41,26 @@ struct TimeEventView: View {
             eventIdentys = this
           }
       }
+
+      // HeadView
+      TextField("오늘의 목표", text: $goal)
+        .padding()
+        .font(.title3)
+        .onChange(of: goal) { newValue in
+          if goal.count >= 200 {
+            goal = String(goal.prefix(200))
+          }
+        }
+        .onSubmit {
+          let newGoal = Goal(date: Date(), text: goal)
+          var goals = readGoals()
+
+          goals.append(newGoal)
+          saveGoals(goals: goals)
+
+          print(newGoal)
+          print(goals)
+        }
 
       ScrollView {
         ZStack(alignment: .topLeading) {
@@ -104,13 +107,50 @@ struct TimeEventView: View {
     .sheet(isPresented: $isPresentingEventPickerView) {
       EventPickerView(eventIdentys: $eventIdentys, selectedId: $selectedId, selectedDate: $selectedDate, isPresentingEventPickerView: $isPresentingEventPickerView)
     }
+    .toolbar {
+      ToolbarItemGroup(placement: .navigationBarLeading) {
+        Button(action: {
+          isShowingDatePicker.toggle()
+        }, label: {
+          let year = selectedDate.formatted(.dateTime.year())
+          let day = selectedDate.formatted(.dateTime.day().month())
+          Text("\(year) \(day)")
+        })
+      }
+      ToolbarItemGroup(placement: .navigationBarTrailing) {
+        NavigationLink(destination: SettingsView()) {
+          Text("Add Event")
+        }
+      }
+    }
     .onAppear {
+      // BetterHours
       let betterHours = readBetterHours()
       betterHours.forEach { betterHour in
         if areDatesOnSameDay(betterHour.date, selectedDate) {
           eventIdentys = betterHour.eventIdentys
           print(eventIdentys)
         }
+      }
+
+      // Goals
+      var goals = readGoals()
+      var isSetGoal = false
+      goals.sort(by: { $0.date > $1.date })
+
+      for goal in goals {
+        let comparison = selectedDate.compare(goal.date)
+
+        switch comparison {
+        case .orderedSame, .orderedDescending:
+          self.goal = goal.text
+          isSetGoal = true
+          break
+        case .orderedAscending:
+          break
+        }
+
+        if isSetGoal { break }
       }
     }
   }
@@ -139,36 +179,4 @@ struct TimeEventView: View {
 
 
 // MARK: Functions
-func readBetterHours() -> [BetterHour] {
-  let defaults = UserDefaults.standard
-  if let data = defaults.object(forKey: "betterHours") as? Data {
-    if let betterHours = try? JSONDecoder().decode([BetterHour].self, from: data) {
-      return betterHours
-    }
-  }
-  return []
-}
 
-func saveBetterHours(betterHours: [BetterHour]) {
-  let defaults = UserDefaults.standard
-  if let encoded = try? JSONEncoder().encode(betterHours) {
-    defaults.set(encoded, forKey: "betterHours")
-  }
-}
-
-func readEvents() -> [Event] {
-  let defaults = UserDefaults.standard
-  if let data = defaults.object(forKey: "events") as? Data {
-    if let events = try? JSONDecoder().decode([Event].self, from: data) {
-      return events
-    }
-  }
-  return []
-}
-
-func saveEvents(events: [Event]) {
-  let defaults = UserDefaults.standard
-  if let encodedEvents = try? JSONEncoder().encode(events) {
-    defaults.set(encodedEvents, forKey: "events")
-  }
-}

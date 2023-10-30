@@ -21,6 +21,8 @@
 		72911D482AA077060090FE60 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72911D472AA077060090FE60 /* Category.swift */; };
 		72911D4A2AA07AB50090FE60 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72911D492AA07AB50090FE60 /* Event.swift */; };
 		72C03B312AEF75A0003BDFD1 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C03B302AEF75A0003BDFD1 /* Date+Extensions.swift */; };
+		72C03B332AEF88D3003BDFD1 /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C03B322AEF88D3003BDFD1 /* Goal.swift */; };
+		72C03B352AEF892C003BDFD1 /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C03B342AEF892C003BDFD1 /* UserDefaults+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +41,8 @@
 		72911D472AA077060090FE60 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		72911D492AA07AB50090FE60 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		72C03B302AEF75A0003BDFD1 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
+		72C03B322AEF88D3003BDFD1 /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
+		72C03B342AEF892C003BDFD1 /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
 		836D024EB16D1788537EA87E /* Pods-BetterHours.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BetterHours.debug.xcconfig"; path = "Target Support Files/Pods-BetterHours/Pods-BetterHours.debug.xcconfig"; sourceTree = "<group>"; };
 		F808F0C555B20686F0DFC0C6 /* Pods_BetterHours.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BetterHours.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -60,6 +64,7 @@
 			children = (
 				724ADDD62AA08E510032E61F /* Colors+Extensions.swift */,
 				72C03B302AEF75A0003BDFD1 /* Date+Extensions.swift */,
+				72C03B342AEF892C003BDFD1 /* UserDefaults+Extensions.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -121,6 +126,7 @@
 				72911D492AA07AB50090FE60 /* Event.swift */,
 				4D708FC92AE7A066006D2085 /* BetterHour.swift */,
 				4D708FCB2AE7A117006D2085 /* EventIdenty.swift */,
+				72C03B322AEF88D3003BDFD1 /* Goal.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -256,10 +262,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72C03B352AEF892C003BDFD1 /* UserDefaults+Extensions.swift in Sources */,
 				724ADDD72AA08E510032E61F /* Colors+Extensions.swift in Sources */,
 				72C03B312AEF75A0003BDFD1 /* Date+Extensions.swift in Sources */,
 				72911D302AA03D1E0090FE60 /* BetterHoursApp.swift in Sources */,
 				724ADDD42AA087B10032E61F /* SettingsView.swift in Sources */,
+				72C03B332AEF88D3003BDFD1 /* Goal.swift in Sources */,
 				4D708FCA2AE7A066006D2085 /* BetterHour.swift in Sources */,
 				4D708FCC2AE7A117006D2085 /* EventIdenty.swift in Sources */,
 				72911D402AA05F1E0090FE60 /* DailyEventView.swift in Sources */,
