@@ -10,7 +10,7 @@ import SwiftUI
 
 struct TimeEventView: View {
   @State private var isPresentingEventPickerView = false
-  @State private var selectedId: Int = 0
+  @State private var selectedId: Int = -1
 
   @State private var eventIdentys: [EventIdenty] = []
 
@@ -18,7 +18,7 @@ struct TimeEventView: View {
   @State private var selectedDate = Date()
 
   @State private var goal: String = ""
-
+  @FocusState private var isTextFieldFocused: Bool
 
   let hourHeight: CGFloat = 50.0
   let lineHeight: CGFloat = 1.0
@@ -30,7 +30,7 @@ struct TimeEventView: View {
           .datePickerStyle(.graphical)
           .onChange(of: selectedDate) { newValue in
             isShowingDatePicker.toggle()
-            
+
             let betterHours = readBetterHours()
             var this = [EventIdenty]()
             betterHours.forEach { betterHour in
@@ -49,6 +49,14 @@ struct TimeEventView: View {
         .onChange(of: goal) { newValue in
           if goal.count >= 200 {
             goal = String(goal.prefix(200))
+          }
+        }
+        .focused($isTextFieldFocused)
+        .toolbar {
+          ToolbarItem(placement: .keyboard) {
+            Button("Done") {
+              isTextFieldFocused = false
+            }
           }
         }
         .onSubmit {
@@ -119,7 +127,7 @@ struct TimeEventView: View {
       }
       ToolbarItemGroup(placement: .navigationBarTrailing) {
         NavigationLink(destination: SettingsView()) {
-          Text("Add Event")
+          Text("활동 카드덱")
         }
       }
     }
@@ -170,7 +178,7 @@ struct TimeEventView: View {
     .frame(height: hourHeight, alignment: .top)
     .background(
       RoundedRectangle(cornerRadius: 2)
-        .fill(eventIdenty.event.category?.color ?? .clear).opacity(0.4)
+        .fill(eventIdenty.event.category?.color ?? .clear).opacity(0.8)
     )
     .padding(.trailing, 30)
     .offset(x: 42, y: offset)

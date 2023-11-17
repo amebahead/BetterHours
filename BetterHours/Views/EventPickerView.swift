@@ -7,14 +7,6 @@
 
 import SwiftUI
 
-let sampleItems = [
-  Event(category: .work, detail: "일과 관련된 내용입니다."),
-  Event(category: .lecture, detail: "학습에 대한 설명입니다."),
-  Event(category: .exercise, detail: "운동 정보입니다."),
-  Event(category: .study, detail: "독서 내용입니다."),
-  Event(category: .living, detail: "생활 팁입니다.")
-]
-
 struct EventPickerView: View {
 
   @Binding var eventIdentys: [EventIdenty]
@@ -29,60 +21,92 @@ struct EventPickerView: View {
 
   var body: some View {
     ScrollView {
-      LazyVGrid(columns: columns, spacing: 20) {
-        ForEach(events) { event in
-          VStack(alignment: .leading) {
-            Text(event.category?.title ?? "")
-              .font(.headline)
-            Text(event.detail ?? "")
-              .font(.subheadline)
-              .foregroundColor(.secondary)
-          }
-          .padding()
-          .background(RoundedRectangle(cornerRadius: 10).fill(Color.gray.opacity(0.2)))
-          .onTapGesture {
-            var existIndex: Int? = nil
-            for (index, eventIdenty) in eventIdentys.enumerated() {
-              if eventIdenty.id == selectedId {
-                existIndex = index
-                break
-              }
+      VStack {
+        LazyVGrid(columns: columns, spacing: 20) {
+          ForEach(events) { event in
+            VStack(alignment: .leading) {
+              Text(event.category?.title ?? "")
+                .font(.headline)
+              Text(event.detail ?? "")
+                .font(.subheadline)
+                .foregroundColor(.secondary)
             }
-
-            if let index = existIndex {
-              eventIdentys.remove(at: index)
-            }
-            eventIdentys.append(EventIdenty(id: selectedId, event: event))
-
-            // Saved UserDefaults
-            let betterHours = readBetterHours()
-            var newBetterHours = betterHours
-            let new = BetterHour(date: selectedDate, eventIdentys: eventIdentys)
-
-            if betterHours.isEmpty {
-              newBetterHours.append(new)
-            } else {
-              for i in 0..<betterHours.count {
-                let betterHour = betterHours[i]
-                if areDatesOnSameDay(betterHour.date, selectedDate) {
-                  newBetterHours.remove(at: i)
+            .frame(maxWidth: .infinity)
+            .frame(minHeight: 40)
+            .padding()
+            .background(RoundedRectangle(cornerRadius: 10).fill(event.category?.color.opacity(0.8) ?? Color.gray))
+            .onTapGesture {
+              var existIndex: Int? = nil
+              for (index, eventIdenty) in eventIdentys.enumerated() {
+                if eventIdenty.id == selectedId {
+                  existIndex = index
+                  break
                 }
               }
-              newBetterHours.append(new)
+              if let index = existIndex {
+                eventIdentys.remove(at: index)
+              }
+              eventIdentys.append(EventIdenty(id: selectedId, event: event))
+
+              // Saved UserDefaults
+              save()
+              DispatchQueue.main.asyncAfter(deadline: .now() + 0.0) {
+                isPresentingEventPickerView = false
+              }
             }
-
-            saveBetterHours(betterHours: newBetterHours)
-
+          }
+        }
+        .padding()
+        
+        Button {
+          var existIndex: Int? = nil
+          for (index, eventIdenty) in eventIdentys.enumerated() {
+            if eventIdenty.id == selectedId {
+              existIndex = index
+              break
+            }
+          }
+          if let index = existIndex {
+            eventIdentys.remove(at: index)
+            // Saved UserDefaults
+            save()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.0) {
               isPresentingEventPickerView = false
             }
           }
+        } label: {
+          Text("삭제")
+            .font(.headline)
+            .foregroundColor(.primary)
         }
+        .frame(maxWidth: .infinity)
+        .frame(minHeight: 70)
+        .background(RoundedRectangle(cornerRadius: 10).fill(Color.gray).opacity(0.8))
+        .padding()
       }
-      .padding()
     }
     .onAppear {
-      events = readEvents() + sampleItems
+      self.events = readEvents()
     }
+  }
+
+  private func save() {
+    let betterHours = readBetterHours()
+    var newBetterHours = betterHours
+    let new = BetterHour(date: selectedDate, eventIdentys: eventIdentys)
+
+    if betterHours.isEmpty {
+      newBetterHours.append(new)
+    } else {
+      for i in 0..<betterHours.count {
+        let betterHour = betterHours[i]
+        if areDatesOnSameDay(betterHour.date, selectedDate) {
+          newBetterHours.remove(at: i)
+        }
+      }
+      newBetterHours.append(new)
+    }
+
+    saveBetterHours(betterHours: newBetterHours)
   }
 }

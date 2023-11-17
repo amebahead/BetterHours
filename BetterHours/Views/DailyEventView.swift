@@ -12,5 +12,6 @@ struct DailyEventView: View {
     NavigationView {
       TimeEventView()
     }
+    .navigationViewStyle(.stack)
   }
 }
