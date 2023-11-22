@@ -31,6 +31,7 @@ struct TimeEventView: View {
           .onChange(of: selectedDate) { newValue in
             isShowingDatePicker.toggle()
 
+            // Events
             let betterHours = readBetterHours()
             var this = [EventIdenty]()
             betterHours.forEach { betterHour in
@@ -39,6 +40,9 @@ struct TimeEventView: View {
               }
             }
             eventIdentys = this
+
+            // Goals
+            setGoals()
           }
       }
 
@@ -142,27 +146,14 @@ struct TimeEventView: View {
       }
 
       // Goals
-      var goals = readGoals()
-      var isSetGoal = false
-      goals.sort(by: { $0.date > $1.date })
-
-      for goal in goals {
-        let comparison = selectedDate.compare(goal.date)
-
-        switch comparison {
-        case .orderedSame, .orderedDescending:
-          self.goal = goal.text
-          isSetGoal = true
-          break
-        case .orderedAscending:
-          break
-        }
-
-        if isSetGoal { break }
-      }
+      setGoals()
     }
   }
+}
 
+
+// MARK: Functions
+extension TimeEventView {
   func eventCell(_ eventIdenty: EventIdenty) -> some View {
     let id = CGFloat(eventIdenty.id)
     let lineHeight = id + 1
@@ -183,8 +174,31 @@ struct TimeEventView: View {
     .padding(.trailing, 30)
     .offset(x: 42, y: offset)
   }
+
+  func setGoals() {
+    // clear
+    self.goal = ""
+
+    var goals = readGoals()
+    var isSetGoal = false
+    goals.sort(by: { $0.date > $1.date })
+
+    for goal in goals {
+      if areDatesOnSameDay(goal.date, selectedDate) {
+        self.goal = goal.text
+        isSetGoal = true
+      }
+    }
+
+    if isSetGoal == false {
+      // Future
+      switch selectedDate.compare(Date()) {
+      case .orderedDescending:
+        self.goal = goals.first?.text ?? ""
+        break
+      case .orderedSame, .orderedAscending:
+        break
+      }
+    }
+  }
 }
-
-
-// MARK: Functions
-
