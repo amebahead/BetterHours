@@ -7,6 +7,12 @@
 
 import Foundation
 
+extension Date {
+  static func today() -> Date {
+    return Date()
+  }
+}
+
 func areDatesOnSameDay(_ date1: Date, _ date2: Date) -> Bool {
   let calendar = Calendar.current
   let components1 = calendar.dateComponents([.year, .month, .day], from: date1)

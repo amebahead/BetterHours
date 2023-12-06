@@ -101,7 +101,7 @@ struct EventPickerView: View {
     if betterHours.isEmpty {
       newBetterHours.append(new)
     } else {
-      for i in 0..<betterHours.count {
+      for i in 0 ..< betterHours.count {
         let betterHour = betterHours[i]
         if areDatesOnSameDay(betterHour.date, selectedDate) {
           newBetterHours.remove(at: i)

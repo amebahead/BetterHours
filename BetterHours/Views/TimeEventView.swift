@@ -28,6 +28,8 @@ struct TimeEventView: View {
       if isShowingDatePicker {
         DatePicker("", selection: $selectedDate, displayedComponents: .date)
           .datePickerStyle(.graphical)
+          .accentColor(.red)
+          .environment(\.locale, Locale.init(identifier: "ko_KR"))
           .onChange(of: selectedDate) { newValue in
             isShowingDatePicker.toggle()
 
@@ -42,37 +44,56 @@ struct TimeEventView: View {
             eventIdentys = this
 
             // Goals
-            setGoals()
+            getGoals()
           }
       }
 
       // HeadView
-      TextField("현재 목표", text: $goal)
-        .padding()
-        .font(.title3)
-        .onChange(of: goal) { newValue in
-          if goal.count >= 200 {
-            goal = String(goal.prefix(200))
-          }
-        }
-        .focused($isTextFieldFocused)
-        .toolbar {
-          ToolbarItem(placement: .keyboard) {
-            Button("Done") {
-              isTextFieldFocused = false
+      if #available(iOS 16, *) {
+        TextField("현재 목표", text: $goal, axis: .vertical)
+          .padding()
+          .font(.title3)
+          .onChange(of: goal) { newValue in
+            if goal.count >= 200 {
+              goal = String(goal.prefix(200))
             }
           }
-        }
-        .onSubmit {
-          let newGoal = Goal(date: Date(), text: goal)
-          var goals = readGoals()
-
-          goals.append(newGoal)
-          saveGoals(goals: goals)
-
-          print(newGoal)
-          print(goals)
-        }
+          .focused($isTextFieldFocused)
+          .disabled(!areDatesOnSameDay(selectedDate, Date.today()))   // Policy: 현재 목표는 '오늘' 시점에만 입력 가능
+          .toolbar {
+            ToolbarItem(placement: .keyboard) {
+              Button("Done") {
+                isTextFieldFocused = false
+                setGoals(goal)
+              }
+            }
+          }
+          .onSubmit {
+            setGoals(goal)
+          }
+      } else {
+        TextField("현재 목표", text: $goal)
+          .padding()
+          .font(.title3)
+          .onChange(of: goal) { newValue in
+            if goal.count >= 200 {
+              goal = String(goal.prefix(200))
+            }
+          }
+          .focused($isTextFieldFocused)
+          .disabled(!areDatesOnSameDay(selectedDate, Date.today()))   // Policy: 현재 목표는 '오늘' 시점에만 입력 가능
+          .toolbar {
+            ToolbarItem(placement: .keyboard) {
+              Button("Done") {
+                isTextFieldFocused = false
+                setGoals(goal)
+              }
+            }
+          }
+          .onSubmit {
+            setGoals(goal)
+          }
+      }
 
       ScrollView {
         ZStack(alignment: .topLeading) {
@@ -145,7 +166,7 @@ struct TimeEventView: View {
       }
 
       // Goals
-      setGoals()
+      getGoals()
     }
   }
 }
@@ -177,15 +198,15 @@ extension TimeEventView {
     .offset(x: 42, y: offset)
   }
 
-  func setGoals() {
+  func getGoals() {
     // clear
     self.goal = ""
 
-    var goals = readGoals()
+    let goals = readGoals()
     var isSetGoal = false
-    goals.sort(by: { $0.date > $1.date })
+    let sortedGoals = goals.sorted(by: { $0.date > $1.date })   // 내림차순
 
-    for goal in goals {
+    for goal in sortedGoals {
       if areDatesOnSameDay(goal.date, selectedDate) {
         self.goal = goal.text
         isSetGoal = true
@@ -193,14 +214,37 @@ extension TimeEventView {
     }
 
     if isSetGoal == false {
-      // Future
-      switch selectedDate.compare(Date()) {
+      switch selectedDate.compare(Date.today()) {
+        // 미래
       case .orderedDescending:
         self.goal = goals.first?.text ?? ""
         break
-      case .orderedSame, .orderedAscending:
+        // 과거
+      case .orderedAscending:
+        self.goal = ""
+        break
+      case .orderedSame:
         break
       }
     }
+  }
+
+  func setGoals(_ goal: String) {
+    let goals = readGoals()
+    var newGoals = goals
+    let new = Goal(date: Date.today(), text: goal)
+
+    if goals.isEmpty {
+      newGoals.append(new)
+    } else {
+      for i in 0 ..< goals.count {
+        let goal = goals[i]
+        if areDatesOnSameDay(goal.date, Date.today()) {
+          newGoals.remove(at: i)
+        }
+      }
+      newGoals.append(new)
+    }
+    saveGoals(goals: newGoals)
   }
 }
