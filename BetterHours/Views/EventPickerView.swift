@@ -27,9 +27,11 @@ struct EventPickerView: View {
             VStack(alignment: .leading) {
               Text(event.category?.title ?? "")
                 .font(.headline)
+                .frame(maxWidth: .infinity, alignment: Alignment.center)
               Text(event.detail ?? "")
                 .font(.subheadline)
                 .foregroundColor(.secondary)
+                .frame(maxWidth: .infinity, alignment: Alignment.center)
             }
             .frame(maxWidth: .infinity)
             .frame(minHeight: 40)
@@ -78,6 +80,7 @@ struct EventPickerView: View {
           Text("삭제")
             .font(.headline)
             .foregroundColor(.primary)
+            .frame(maxWidth: .infinity, alignment: Alignment.center)
         }
         .frame(maxWidth: .infinity)
         .frame(minHeight: 70)
