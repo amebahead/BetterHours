@@ -13,6 +13,7 @@ struct TimeEventView: View {
   @State private var selectedId: Int = -1
 
   @State private var eventIdentys: [EventIdenty] = []
+  @State private var analysisEvents: [(String, String, Color)] = []
 
   @State private var isShowingDatePicker = false
   @State private var selectedDate = Date()
@@ -45,8 +46,14 @@ struct TimeEventView: View {
 
             // Goals
             getGoals()
+
+            // Analysis
+            setAnalysisEvent()
           }
       }
+
+      // Analysis
+      AnalysisEventView(analysisEvents: $analysisEvents)
 
       // HeadView
       if #available(iOS 16, *) {
@@ -136,8 +143,11 @@ struct TimeEventView: View {
       }
     }
     .padding()
-    .sheet(isPresented: $isPresentingEventPickerView) {
+    .sheet(isPresented: $isPresentingEventPickerView, onDismiss: {
+      setAnalysisEvent()
+    }) {
       EventPickerView(eventIdentys: $eventIdentys, selectedId: $selectedId, selectedDate: $selectedDate, isPresentingEventPickerView: $isPresentingEventPickerView)
+      
     }
     .toolbar {
       ToolbarItemGroup(placement: .navigationBarLeading) {
@@ -167,6 +177,9 @@ struct TimeEventView: View {
 
       // Goals
       getGoals()
+
+      // Analysis
+      setAnalysisEvent()
     }
   }
 }
@@ -246,5 +259,52 @@ extension TimeEventView {
       newGoals.append(new)
     }
     saveGoals(goals: newGoals)
+  }
+
+  func setAnalysisEvent() {
+    var life = 0
+    var work = 0
+    var learn = 0
+    var exercise = 0
+    var leisure = 0
+    var meeting = 0
+    var etc = 0
+    var sleep = 0
+
+    for eventIdenty in eventIdentys {
+      switch eventIdenty.event.category {
+      case .some(.life):
+        life += 1
+      case .some(.work):
+        work += 1
+      case .some(.learn):
+        learn += 1
+      case .some(.exercise):
+        exercise += 1
+      case .some(.leisure):
+        leisure += 1
+      case .some(.meeting):
+        meeting += 1
+      case .some(.etc):
+        etc += 1
+      case .some(.sleep):
+        sleep += 1
+      case .none:
+        break
+      }
+
+      let events = [
+        (Category.life.title, "\(life)", Category.life.color),
+        (Category.work.title, "\(work)", Category.work.color),
+        (Category.learn.title, "\(learn)", Category.learn.color),
+        (Category.exercise.title, "\(exercise)", Category.exercise.color),
+        (Category.leisure.title, "\(leisure)", Category.leisure.color),
+        (Category.meeting.title, "\(meeting)", Category.meeting.color),
+        (Category.etc.title, "\(etc)", Category.etc.color),
+        (Category.sleep.title, "\(sleep)", Category.sleep.color)
+      ]
+
+      self.analysisEvents = events
+    }
   }
 }
