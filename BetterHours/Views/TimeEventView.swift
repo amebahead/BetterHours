@@ -88,7 +88,6 @@ struct TimeEventView: View {
                   Text("\(hour):00")
                     .font(.caption)
                     .frame(width: 35, alignment: .trailing)
-
                   Spacer()
                 }
 
@@ -131,7 +130,7 @@ struct TimeEventView: View {
       }
       ToolbarItemGroup(placement: .navigationBarTrailing) {
         NavigationLink(destination: SettingsView()) {
-          Text("활동 카드덱")
+          Text("활동 카드 덱")
         }
       }
     }
@@ -162,6 +161,9 @@ extension TimeEventView {
     return VStack(alignment: .leading, spacing: 10.0) {
       Text(eventIdenty.event.category?.title ?? "").bold()
       Text(eventIdenty.event.detail ?? "")
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .lineLimit(1)
+        .truncationMode(.tail)
     }
     .font(.caption)
     .frame(maxWidth: .infinity, alignment: .leading)

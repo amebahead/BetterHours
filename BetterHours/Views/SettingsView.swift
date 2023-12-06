@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SettingsView: View {
-  @State private var selectedCategory = Category.work
+  @State private var selectedCategory = Category.life
   @State private var detail = ""
   @State private var events: [Event] = []
   @FocusState private var isTextFieldFocused: Bool
@@ -42,7 +42,6 @@ struct SettingsView: View {
             .onChange(of: detail) { newValue in
               let isKorean = containsKorean(text: newValue)
               let limit = isKorean ? 40 : 80
-
               if newValue.count > limit {
                 detail = String(newValue.prefix(limit))
               }
@@ -52,24 +51,34 @@ struct SettingsView: View {
           guard !detail.isEmpty else { return }
           var events = readEvents()
           events.append(Event(category: selectedCategory, detail: detail))
-
           saveEvents(events: events)
+
           self.presentationMode.wrappedValue.dismiss()
         })
         .frame(minHeight: 350.0)
 
         LazyVGrid(columns: columns, spacing: 20) {
-          ForEach(events) { event in
+          ForEach(events.indices, id: \.self) { index in
             VStack(alignment: .leading) {
-              Text(event.category?.title ?? "")
+              Text(events[index].category?.title ?? "")
                 .font(.headline)
-              Text(event.detail ?? "")
+                .frame(maxWidth: .infinity, alignment: Alignment.center)
+              Text(events[index].detail ?? "")
                 .font(.subheadline)
                 .foregroundColor(.secondary)
+                .frame(maxWidth: .infinity, alignment: Alignment.center)
             }
             .frame(maxWidth: .infinity)
             .padding()
-            .background(RoundedRectangle(cornerRadius: 10).fill(event.category?.color.opacity(0.8) ?? Color.gray))
+            .background(RoundedRectangle(cornerRadius: 10).fill(events[index].category?.color.opacity(0.8) ?? Color.gray))
+            .contextMenu {
+              Button(action: {
+                events.remove(at: index)
+                saveEvents(events: events)
+              }, label: {
+                Label("삭제", systemImage: "trash")
+              })
+            }
           }
         }
         .padding()
