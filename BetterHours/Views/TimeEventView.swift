@@ -32,24 +32,9 @@ struct TimeEventView: View {
           .datePickerStyle(.graphical)
           .accentColor(.red)
           .environment(\.locale, Locale.init(identifier: "ko_KR"))
-          .onChange(of: selectedDate) { newValue in
+          .onChange(of: selectedDate) { newDate in
             isShowingDatePicker.toggle()
-
-            // Events
-            let betterHours = readBetterHours()
-            var this = [EventIdenty]()
-            betterHours.forEach { betterHour in
-              if areDatesOnSameDay(betterHour.date, newValue) {
-                this = betterHour.eventIdentys
-              }
-            }
-            eventIdentys = this
-
-            // Goals
-            getGoals()
-
-            // Analysis
-            setAnalysisEvent()
+            updateData(newDate)
           }
       }
 
@@ -72,7 +57,6 @@ struct TimeEventView: View {
               }
             }
           }
-          .padding(EdgeInsets(top: 0, leading: 0, bottom: 16, trailing: 0))
       } else {
         TextField("현재 목표", text: $goal)
           .font(.title3)
@@ -91,17 +75,16 @@ struct TimeEventView: View {
               }
             }
           }
-          .padding(EdgeInsets(top: 0, leading: 0, bottom: 16, trailing: 0))
-      }
-
-      // Analysis
-      if self.analysisEvents.reduce(0, { partialResult, event in
-        partialResult + (Int(event.1) ?? 0)
-      }) > 0 {
-        AnalysisEventView(analysisEvents: $analysisEvents)
       }
 
       ScrollView {
+        // Analysis
+        if self.analysisEvents.reduce(0, { partialResult, event in
+          partialResult + (Int(event.1) ?? 0)
+        }) > 0 {
+          AnalysisEventView(analysisEvents: $analysisEvents)
+        }
+
         ZStack(alignment: .topLeading) {
           VStack(alignment: .leading, spacing: 0) {
             ForEach(0..<25) { hour in
@@ -143,7 +126,7 @@ struct TimeEventView: View {
     }
     .padding()
     .sheet(isPresented: $isPresentingEventPickerView, onDismiss: {
-      setAnalysisEvent()
+      updateData(selectedDate)
     }) {
       EventPickerView(eventIdentys: $eventIdentys, selectedId: $selectedId, selectedDate: $selectedDate, isPresentingEventPickerView: $isPresentingEventPickerView)
     }
@@ -162,20 +145,7 @@ struct TimeEventView: View {
       }
     }
     .onAppear {
-      // BetterHours
-      let betterHours = readBetterHours()
-      betterHours.forEach { betterHour in
-        if areDatesOnSameDay(betterHour.date, selectedDate) {
-          eventIdentys = betterHour.eventIdentys
-          print(eventIdentys)
-        }
-      }
-
-      // Goals
-      getGoals()
-
-      // Analysis
-      setAnalysisEvent()
+      updateData(selectedDate)
     }
   }
 }
@@ -293,19 +263,41 @@ extension TimeEventView {
       case .none:
         break
       }
-
-      let events = [
-        (Category.life.title, "\(life)", Category.life.color),
-        (Category.work.title, "\(work)", Category.work.color),
-        (Category.learn.title, "\(learn)", Category.learn.color),
-        (Category.exercise.title, "\(exercise)", Category.exercise.color),
-        (Category.leisure.title, "\(leisure)", Category.leisure.color),
-        (Category.meeting.title, "\(meeting)", Category.meeting.color),
-        (Category.etc.title, "\(etc)", Category.etc.color),
-        (Category.sleep.title, "\(sleep)", Category.sleep.color)
-      ]
-
-      self.analysisEvents = events
     }
+
+    let events = [
+      (Category.life.title, "\(life)", Category.life.color),
+      (Category.work.title, "\(work)", Category.work.color),
+      (Category.learn.title, "\(learn)", Category.learn.color),
+      (Category.exercise.title, "\(exercise)", Category.exercise.color),
+      (Category.leisure.title, "\(leisure)", Category.leisure.color),
+      (Category.meeting.title, "\(meeting)", Category.meeting.color),
+      (Category.etc.title, "\(etc)", Category.etc.color),
+      (Category.sleep.title, "\(sleep)", Category.sleep.color)
+    ]
+
+    self.analysisEvents = events
+  }
+
+  func updateData(_ newDate: Date) {
+    // Events
+    let betterHours = readBetterHours()
+
+    print(betterHours)
+
+    
+    var this = [EventIdenty]()
+    betterHours.forEach { betterHour in
+      if areDatesOnSameDay(betterHour.date, newDate) {
+        this = betterHour.eventIdentys
+      }
+    }
+    eventIdentys = this
+
+    // Goals
+    getGoals()
+
+    // Analysis
+    setAnalysisEvent()
   }
 }

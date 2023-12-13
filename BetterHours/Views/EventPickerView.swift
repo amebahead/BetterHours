@@ -80,7 +80,7 @@ struct EventPickerView: View {
           Text("삭제")
             .font(.headline)
             .foregroundColor(.primary)
-            .frame(maxWidth: .infinity, alignment: Alignment.center)
+            .frame(maxWidth: .infinity, alignment: .center)
         }
         .frame(maxWidth: .infinity)
         .frame(minHeight: 70)

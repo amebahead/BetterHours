@@ -13,6 +13,20 @@ struct AnalysisEventView: View {
   var body: some View {
     ScrollView(.horizontal, showsIndicators: false) {
       HStack(alignment: .center, spacing: 20) {
+        // Header
+        VStack {
+          let total = self.analysisEvents.reduce(0, { partialResult, event in
+            partialResult + (Int(event.1) ?? 0)
+          })
+
+          Text("\(total)h")
+            .font(.caption)
+            .bold()
+          Text(" /24")
+            .font(.caption)
+            .bold()
+        }
+        // Contents
         ForEach(analysisEvents, id: \.self.0) { event in
           VStack {
             HStack {
@@ -22,6 +36,7 @@ struct AnalysisEventView: View {
               Text("\(event.1)h")
                 .font(.caption)
                 .bold()
+                .frame(maxWidth: .infinity, alignment: .center)
             }
             HStack {
               Text(event.0)
