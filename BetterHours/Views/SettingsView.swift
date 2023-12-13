@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct SettingsView: View {
   @State private var selectedCategory = Category.life
@@ -13,7 +14,7 @@ struct SettingsView: View {
   @State private var events: [Event] = []
   @FocusState private var isTextFieldFocused: Bool
 
-  @Environment(\.presentationMode) var presentationMode
+  @State private var showToast = false
 
   // 그리드 레이아웃 설정
   var columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
@@ -53,7 +54,10 @@ struct SettingsView: View {
           events.append(Event(category: selectedCategory, detail: detail))
           saveEvents(events: events)
 
-          self.presentationMode.wrappedValue.dismiss()
+          self.events = events
+          self.detail = ""
+          self.isTextFieldFocused = false
+          showToast.toggle()
         })
         .frame(minHeight: 350.0)
 
@@ -86,6 +90,9 @@ struct SettingsView: View {
     }
     .onAppear {
       events = readEvents()
+    }
+    .toast(isPresenting: $showToast) {
+      AlertToast(displayMode: .hud, type: .regular, title: "활동 카드가 저장되었습니다.")
     }
   }
 

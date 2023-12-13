@@ -8,5 +8,6 @@ target 'BetterHours' do
   # Pods for BetterHours
   # UserDefaults
   pod 'SwiftyUserDefaults'
+  pod 'AlertToast'
 
 end
