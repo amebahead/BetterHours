@@ -26,6 +26,7 @@ struct TimeEventView: View {
 
   var body: some View {
     VStack(alignment: .leading) {
+      // Date Calendar
       if isShowingDatePicker {
         DatePicker("", selection: $selectedDate, displayedComponents: .date)
           .datePickerStyle(.graphical)
@@ -52,13 +53,9 @@ struct TimeEventView: View {
           }
       }
 
-      // Analysis
-      AnalysisEventView(analysisEvents: $analysisEvents)
-
-      // HeadView
+      // Goals
       if #available(iOS 16, *) {
         TextField("현재 목표", text: $goal, axis: .vertical)
-          .padding()
           .font(.title3)
           .onChange(of: goal) { newValue in
             if goal.count >= 200 {
@@ -75,12 +72,9 @@ struct TimeEventView: View {
               }
             }
           }
-          .onSubmit {
-            setGoals(goal)
-          }
+          .padding(EdgeInsets(top: 0, leading: 0, bottom: 16, trailing: 0))
       } else {
         TextField("현재 목표", text: $goal)
-          .padding()
           .font(.title3)
           .onChange(of: goal) { newValue in
             if goal.count >= 200 {
@@ -97,9 +91,14 @@ struct TimeEventView: View {
               }
             }
           }
-          .onSubmit {
-            setGoals(goal)
-          }
+          .padding(EdgeInsets(top: 0, leading: 0, bottom: 16, trailing: 0))
+      }
+
+      // Analysis
+      if self.analysisEvents.reduce(0, { partialResult, event in
+        partialResult + (Int(event.1) ?? 0)
+      }) > 0 {
+        AnalysisEventView(analysisEvents: $analysisEvents)
       }
 
       ScrollView {
@@ -216,6 +215,8 @@ extension TimeEventView {
     self.goal = ""
 
     let goals = readGoals()
+    print(goals)
+
     var isSetGoal = false
     let sortedGoals = goals.sorted(by: { $0.date > $1.date })   // 내림차순
 
@@ -223,6 +224,7 @@ extension TimeEventView {
       if areDatesOnSameDay(goal.date, selectedDate) {
         self.goal = goal.text
         isSetGoal = true
+        break
       }
     }
 
@@ -230,11 +232,15 @@ extension TimeEventView {
       switch selectedDate.compare(Date.today()) {
         // 미래
       case .orderedDescending:
-        self.goal = goals.first?.text ?? ""
+        self.goal = sortedGoals.first?.text ?? ""
         break
         // 과거
       case .orderedAscending:
-        self.goal = ""
+        if areDatesOnSameDay(Date.today(), selectedDate) {
+          self.goal = sortedGoals.first?.text ?? ""
+        } else {
+          self.goal = ""
+        }
         break
       case .orderedSame:
         break
@@ -245,14 +251,14 @@ extension TimeEventView {
   func setGoals(_ goal: String) {
     let goals = readGoals()
     var newGoals = goals
-    let new = Goal(date: Date.today(), text: goal)
+    let new = Goal(date: selectedDate, text: goal)
 
     if goals.isEmpty {
       newGoals.append(new)
     } else {
       for i in 0 ..< goals.count {
         let goal = goals[i]
-        if areDatesOnSameDay(goal.date, Date.today()) {
+        if areDatesOnSameDay(goal.date, selectedDate) {
           newGoals.remove(at: i)
         }
       }
