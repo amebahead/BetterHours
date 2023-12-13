@@ -40,23 +40,29 @@ struct TimeEventView: View {
 
       // Goals
       if #available(iOS 16, *) {
-        TextField("현재 목표", text: $goal, axis: .vertical)
-          .font(.title3)
-          .onChange(of: goal) { newValue in
-            if goal.count >= 200 {
-              goal = String(goal.prefix(200))
-            }
-          }
-          .focused($isTextFieldFocused)
-          .disabled(!areDatesOnSameDay(selectedDate, Date.today()))   // Policy: 현재 목표는 '오늘' 시점에만 입력 가능
-          .toolbar {
-            ToolbarItem(placement: .keyboard) {
-              Button("Done") {
-                isTextFieldFocused = false
-                setGoals(goal)
+        HStack {
+          TextField("현재 목표", text: $goal, axis: .vertical)
+            .font(.title3)
+            .onChange(of: goal) { newValue in
+              if goal.count >= 200 {
+                goal = String(goal.prefix(200))
               }
             }
+            .focused($isTextFieldFocused)
+            .disabled(!areDatesOnSameDay(selectedDate, Date.today()))   // Policy: 현재 목표는 '오늘' 시점에만 입력 가능
+            .toolbar {
+              ToolbarItem(placement: .keyboard) {
+                Button("Done") {
+                  isTextFieldFocused = false
+                  setGoals(goal)
+                }
+              }
+            }
+
+          NavigationLink(destination: JournalView()) {
+            Text("하루 기록")
           }
+        }
       } else {
         TextField("현재 목표", text: $goal)
           .font(.title3)
@@ -67,6 +73,7 @@ struct TimeEventView: View {
           }
           .focused($isTextFieldFocused)
           .disabled(!areDatesOnSameDay(selectedDate, Date.today()))   // Policy: 현재 목표는 '오늘' 시점에만 입력 가능
+          .background(.red)
           .toolbar {
             ToolbarItem(placement: .keyboard) {
               Button("Done") {
@@ -282,10 +289,6 @@ extension TimeEventView {
   func updateData(_ newDate: Date) {
     // Events
     let betterHours = readBetterHours()
-
-    print(betterHours)
-
-    
     var this = [EventIdenty]()
     betterHours.forEach { betterHour in
       if areDatesOnSameDay(betterHour.date, newDate) {
