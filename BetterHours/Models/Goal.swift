@@ -12,7 +12,7 @@ struct Goal: Codable {
   var text: String
 
   init() {
-    self.date = Date()
+    self.date = Date.today()
     self.text = ""
   }
 

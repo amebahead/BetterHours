@@ -11,6 +11,16 @@ extension Date {
   static func today() -> Date {
     return Date()
   }
+
+  func dateString() -> String {
+    let koreaTimeZone = TimeZone(identifier: "Asia/Seoul")
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy년 MM월 dd일 (EE)"
+    formatter.timeZone = koreaTimeZone
+    formatter.locale = Locale(identifier: "ko_KR")
+
+    return formatter.string(from: self)
+  }
 }
 
 func areDatesOnSameDay(_ date1: Date, _ date2: Date) -> Bool {

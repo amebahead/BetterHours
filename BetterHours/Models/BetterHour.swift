@@ -12,7 +12,7 @@ struct BetterHour: Codable {
   var eventIdentys: [EventIdenty]
 
   init() {
-    self.date = Date()
+    self.date = Date.today()
     self.eventIdentys = [EventIdenty]()
   }
 

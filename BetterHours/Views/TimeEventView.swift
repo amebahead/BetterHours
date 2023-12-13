@@ -16,7 +16,7 @@ struct TimeEventView: View {
   @State private var analysisEvents: [(String, String, Color)] = []
 
   @State private var isShowingDatePicker = false
-  @State private var selectedDate = Date()
+  @State private var selectedDate = Date.today()
 
   @State private var goal: String = ""
   @FocusState private var isTextFieldFocused: Bool
@@ -146,16 +146,13 @@ struct TimeEventView: View {
       setAnalysisEvent()
     }) {
       EventPickerView(eventIdentys: $eventIdentys, selectedId: $selectedId, selectedDate: $selectedDate, isPresentingEventPickerView: $isPresentingEventPickerView)
-      
     }
     .toolbar {
       ToolbarItemGroup(placement: .navigationBarLeading) {
         Button(action: {
           isShowingDatePicker.toggle()
         }, label: {
-          let year = selectedDate.formatted(.dateTime.year())
-          let day = selectedDate.formatted(.dateTime.day().month())
-          Text("\(year) \(day)")
+          Text(selectedDate.dateString())
         })
       }
       ToolbarItemGroup(placement: .navigationBarTrailing) {
@@ -215,8 +212,6 @@ extension TimeEventView {
     self.goal = ""
 
     let goals = readGoals()
-    print(goals)
-
     var isSetGoal = false
     let sortedGoals = goals.sorted(by: { $0.date > $1.date })   // 내림차순
 
