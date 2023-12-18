@@ -30,3 +30,13 @@ func areDatesOnSameDay(_ date1: Date, _ date2: Date) -> Bool {
 
   return components1.year == components2.year && components1.month == components2.month && components1.day == components2.day
 }
+
+func areDatesNotFutureDay(_ date1: Date, _ date2: Date) -> Bool {
+  // 오늘이거나
+  if areDatesOnSameDay(date1, date2) { return true }
+  // 과거이거나
+  if date1 < date2 { return true }
+
+  // 아니면
+  return false
+}

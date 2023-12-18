@@ -60,3 +60,21 @@ func saveEvents(events: [Event]) {
     defaults.set(encodedEvents, forKey: "events")
   }
 }
+
+// Journals
+func readJournals() -> [JournalWithDate] {
+  let defaults = UserDefaults.standard
+  if let data = defaults.object(forKey: "journals") as? Data {
+    if let journals = try? JSONDecoder().decode([JournalWithDate].self, from: data) {
+      return journals
+    }
+  }
+  return []
+}
+
+func saveJournal(journals: [JournalWithDate]) {
+  let defaults = UserDefaults.standard
+  if let encodedJournals = try? JSONEncoder().encode(journals) {
+    defaults.set(encodedJournals, forKey: "journals")
+  }
+}

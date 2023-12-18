@@ -13,6 +13,7 @@
 		4D84DAA72B29B4090059F27D /* JournalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D84DAA62B29B4090059F27D /* JournalView.swift */; };
 		4DE5CDA82B206FC600D4A1E6 /* AnalysisEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE5CDA72B206FC600D4A1E6 /* AnalysisEventView.swift */; };
 		5EECC18F0BEA2639AC0561C8 /* Pods_BetterHours.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F808F0C555B20686F0DFC0C6 /* Pods_BetterHours.framework */; };
+		72393FFE2B2FE17800209B5E /* Journal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72393FFD2B2FE17800209B5E /* Journal.swift */; };
 		724ADDD42AA087B10032E61F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724ADDD32AA087B10032E61F /* SettingsView.swift */; };
 		724ADDD72AA08E510032E61F /* Colors+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724ADDD62AA08E510032E61F /* Colors+Extensions.swift */; };
 		72911D302AA03D1E0090FE60 /* BetterHoursApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72911D2F2AA03D1E0090FE60 /* BetterHoursApp.swift */; };
@@ -35,6 +36,7 @@
 		4D84DAA42B29AE260059F27D /* GoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalView.swift; sourceTree = "<group>"; };
 		4D84DAA62B29B4090059F27D /* JournalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalView.swift; sourceTree = "<group>"; };
 		4DE5CDA72B206FC600D4A1E6 /* AnalysisEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisEventView.swift; sourceTree = "<group>"; };
+		72393FFD2B2FE17800209B5E /* Journal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Journal.swift; sourceTree = "<group>"; };
 		724ADDD32AA087B10032E61F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		724ADDD62AA08E510032E61F /* Colors+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+Extensions.swift"; sourceTree = "<group>"; };
 		72911D2C2AA03D1E0090FE60 /* BetterHours.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BetterHours.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -136,6 +138,7 @@
 				4D708FC92AE7A066006D2085 /* BetterHour.swift */,
 				4D708FCB2AE7A117006D2085 /* EventIdenty.swift */,
 				72C03B322AEF88D3003BDFD1 /* Goal.swift */,
+				72393FFD2B2FE17800209B5E /* Journal.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -280,6 +283,7 @@
 				724ADDD42AA087B10032E61F /* SettingsView.swift in Sources */,
 				72C03B332AEF88D3003BDFD1 /* Goal.swift in Sources */,
 				4D84DAA52B29AE260059F27D /* GoalView.swift in Sources */,
+				72393FFE2B2FE17800209B5E /* Journal.swift in Sources */,
 				4D708FCA2AE7A066006D2085 /* BetterHour.swift in Sources */,
 				4D708FCC2AE7A117006D2085 /* EventIdenty.swift in Sources */,
 				72911D402AA05F1E0090FE60 /* DailyEventView.swift in Sources */,

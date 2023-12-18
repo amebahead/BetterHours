@@ -7,44 +7,70 @@
 
 import SwiftUI
 
-
-struct Reflection: Identifiable, Equatable {
-  let id = UUID()
-  var title: String
-  var subtitle: String
-  var color: Color
-}
-
 struct JournalView: View {
-  @State private var reflections: [Reflection] = [
-    Reflection(title: "오늘 회고", subtitle: "", color: .blue),
-    Reflection(title: "가장 좋았던 일", subtitle: "", color: .red),
-    Reflection(title: "스스로에게 한 마디", subtitle: "", color: .purple)
-  ]
-  @State private var selectedReflection: Reflection?
+  @State private var journals: [Journal] = []
+  @State private var selectedjournal: Journal?
+  @State internal var selectedDate: Date
+  @Binding var analysisEvents: [(String, String, Color)]
 
   var body: some View {
-    ScrollView {
-      VStack {
-        ForEach($reflections.indices, id: \.self) { index in
-          ReflectionCard(color: reflections[index].color, title: reflections[index].title, subtitle: reflections[index].subtitle)
-            .onTapGesture {
-              self.selectedReflection = reflections[index]
-            }
+    VStack {
+      AnalysisEventView(analysisEvents: $analysisEvents)
+
+      ScrollView {
+        VStack {
+          ForEach($journals.indices, id: \.self) { index in
+            JournalCard(title: journals[index].title, subtitle: journals[index].subtitle, index: journals[index].index)
+              .onTapGesture {
+                self.selectedjournal = journals[index]
+              }
+              .disabled(!areDatesNotFutureDay(selectedDate, Date.today()))   // Policy: 하루 기록은 오늘이나 과거만 기록 가능
+          }
         }
+        .padding()
       }
     }
-    .sheet(item: $selectedReflection) { reflection in
-      EditorView(reflection: $reflections[reflections.firstIndex(where: { $0.id == reflection.id })!])
+    .sheet(item: $selectedjournal) { journal in
+      EditorView(selectedDate: selectedDate, journal: $journals[journals.firstIndex(where: { $0.id == journal.id })!])
+    }
+    .onAppear {
+      let journals = readJournals()
+      var this: [Journal] = [
+        Journal(index: 0, title: "오늘 회고", subtitle: ""),
+        Journal(index: 1, title: "가장 좋았던 일", subtitle: ""),
+        Journal(index: 2, title: "스스로에게 한 마디", subtitle: "")
+      ]
+
+      if journals.isEmpty {
+        let new = JournalWithDate(date: selectedDate, journals: this)
+        var newJournals = journals
+        newJournals.append(new)
+        saveJournal(journals: newJournals)
+      } else {
+        var isNew = true
+        journals.forEach { journal in
+          if areDatesOnSameDay(journal.date, selectedDate) {
+            this = journal.journals
+            isNew = false
+          }
+        }
+        if isNew {
+          let new = JournalWithDate(date: selectedDate, journals: this)
+          var newJournals = journals
+          newJournals.append(new)
+          saveJournal(journals: newJournals)
+        }
+      }
+      self.journals = this
     }
     .navigationTitle("하루 기록")
   }
 }
 
-struct ReflectionCard: View {
-  var color: Color
+struct JournalCard: View {
   var title: String
   var subtitle: String
+  var index: Int
 
   var body: some View {
     VStack(spacing: 5) {
@@ -52,29 +78,62 @@ struct ReflectionCard: View {
         .font(.headline)
         .frame(maxWidth: .infinity, alignment: .center)
 
-      Text(subtitle)
-        .font(.body)
-        .frame(maxWidth: .infinity, alignment: .leading)
+      if subtitle.isEmpty {
+        if index == 0 {
+          Text("오늘 하루는 어땠나요?")
+            .foregroundColor(.gray)
+        } else if index == 1 {
+          Text("오늘 어떤일이 가장 좋았나요?")
+            .foregroundColor(.gray)
+        } else if index == 2 {
+          Text("오늘 나에게 하고 싶은 말이 있나요?")
+            .foregroundColor(.gray)
+        }
+      } else {
+        Text(subtitle)
+          .font(.body)
+          .frame(maxWidth: .infinity, alignment: .leading)
+      }
     }
     .padding()
     .frame(maxWidth: .infinity)
-    .background(color)
+    .background(Color.gray.opacity(0.2))
     .cornerRadius(10)
   }
 }
 
 struct EditorView: View {
-  @Binding var reflection: Reflection
+  @State var selectedDate: Date
+  @Binding var journal: Journal
   @Environment(\.presentationMode) var presentationMode
 
   var body: some View {
     VStack {
-      TextEditor(text: $reflection.subtitle)
+      TextEditor(text: $journal.subtitle)
         .padding()
-      Button("Save") {
+
+      Button("저장하기") {
+        let jounals = readJournals()
+        var newJournals = jounals
+        let newJournal = Journal(index: $journal.index.wrappedValue, title: $journal.title.wrappedValue, subtitle: $journal.subtitle.wrappedValue)
+
+        for (index, jounal) in jounals.enumerated() {
+          if areDatesOnSameDay(jounal.date, selectedDate) {
+            var originJournals = jounal.journals
+            originJournals[$journal.index.wrappedValue] = newJournal
+            newJournals[index].journals = originJournals
+            break
+          }
+        }
+
+        saveJournal(journals: newJournals)
         presentationMode.wrappedValue.dismiss()
       }
       .padding()
     }
   }
+}
+
+// MARK: Functions
+extension JournalView {
 }

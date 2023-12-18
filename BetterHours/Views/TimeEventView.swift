@@ -52,14 +52,14 @@ struct TimeEventView: View {
             .disabled(!areDatesOnSameDay(selectedDate, Date.today()))   // Policy: 현재 목표는 '오늘' 시점에만 입력 가능
             .toolbar {
               ToolbarItem(placement: .keyboard) {
-                Button("Done") {
+                Button("완료하기") {
                   isTextFieldFocused = false
                   setGoals(goal)
                 }
               }
             }
 
-          NavigationLink(destination: JournalView()) {
+          NavigationLink(destination: JournalView(selectedDate: selectedDate, analysisEvents: $analysisEvents)) {
             Text("하루 기록")
           }
         }
@@ -76,7 +76,7 @@ struct TimeEventView: View {
           .background(.red)
           .toolbar {
             ToolbarItem(placement: .keyboard) {
-              Button("Done") {
+              Button("완료하기") {
                 isTextFieldFocused = false
                 setGoals(goal)
               }
@@ -84,14 +84,9 @@ struct TimeEventView: View {
           }
       }
 
-      ScrollView {
-        // Analysis
-        if self.analysisEvents.reduce(0, { partialResult, event in
-          partialResult + (Int(event.1) ?? 0)
-        }) > 0 {
-          AnalysisEventView(analysisEvents: $analysisEvents)
-        }
+      AnalysisEventView(analysisEvents: $analysisEvents)
 
+      ScrollView {
         ZStack(alignment: .topLeading) {
           VStack(alignment: .leading, spacing: 0) {
             ForEach(0..<25) { hour in

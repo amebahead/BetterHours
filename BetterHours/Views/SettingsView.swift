@@ -35,7 +35,7 @@ struct SettingsView: View {
             .focused($isTextFieldFocused)
             .toolbar {
               ToolbarItem(placement: .keyboard) {
-                Button("Done") {
+                Button("완료하기") {
                   isTextFieldFocused = false
                 }
               }
@@ -94,6 +94,7 @@ struct SettingsView: View {
     .toast(isPresenting: $showToast) {
       AlertToast(displayMode: .hud, type: .regular, title: "활동 카드가 저장되었습니다.")
     }
+    .background(Color(UIColor.systemGroupedBackground))
   }
 
   private func containsKorean(text: String) -> Bool {
