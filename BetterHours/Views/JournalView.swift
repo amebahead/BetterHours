@@ -103,15 +103,26 @@ struct JournalCard: View {
 }
 
 struct EditorView: View {
+  enum FocusField {
+    case field
+  }
+
   @State var selectedDate: Date
   @Binding var journal: Journal
   @Environment(\.presentationMode) var presentationMode
+  @FocusState var focusedField: FocusField?
 
   var body: some View {
     VStack {
       TextEditor(text: $journal.subtitle)
+        .focused($focusedField, equals: .field)
+        .onAppear {
+          DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.focusedField = .field
+          }
+        }
         .padding()
-
+      
       Button("저장하기") {
         let jounals = readJournals()
         var newJournals = jounals
