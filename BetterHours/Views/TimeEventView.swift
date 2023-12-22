@@ -64,24 +64,29 @@ struct TimeEventView: View {
           }
         }
       } else {
-        TextField("현재 목표", text: $goal)
-          .font(.title3)
-          .onChange(of: goal) { newValue in
-            if goal.count >= 200 {
-              goal = String(goal.prefix(200))
-            }
-          }
-          .focused($isTextFieldFocused)
-          .disabled(!areDatesOnSameDay(selectedDate, Date.today()))   // Policy: 현재 목표는 '오늘' 시점에만 입력 가능
-          .background(.red)
-          .toolbar {
-            ToolbarItem(placement: .keyboard) {
-              Button("완료하기") {
-                isTextFieldFocused = false
-                setGoals(goal)
+        HStack {
+          TextField("현재 목표", text: $goal)
+            .font(.title3)
+            .onChange(of: goal) { newValue in
+              if goal.count >= 200 {
+                goal = String(goal.prefix(200))
               }
             }
+            .focused($isTextFieldFocused)
+            .disabled(!areDatesOnSameDay(selectedDate, Date.today()))   // Policy: 현재 목표는 '오늘' 시점에만 입력 가능
+            .toolbar {
+              ToolbarItem(placement: .keyboard) {
+                Button("완료하기") {
+                  isTextFieldFocused = false
+                  setGoals(goal)
+                }
+              }
+            }
+
+          NavigationLink(destination: JournalView(selectedDate: selectedDate, analysisEvents: $analysisEvents)) {
+            Text("하루 기록")
           }
+        }
       }
 
       AnalysisEventView(analysisEvents: $analysisEvents)
