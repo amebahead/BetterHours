@@ -20,10 +20,10 @@ struct JournalView: View {
       ScrollView {
         VStack {
           ForEach($journals.indices, id: \.self) { index in
-            JournalCard(title: journals[index].title, subtitle: journals[index].subtitle, index: journals[index].index)
+            JournalCard(title: journals[index].title, subtitle: journals[index].subtitle, index: journals[index].index, subscription: journals[index].subscription)
               .onTapGesture {
                 self.selectedjournal = journals[index]
-              }   
+              }
           }
         }
         .padding()
@@ -70,6 +70,7 @@ struct JournalCard: View {
   var title: String
   var subtitle: String
   var index: Int
+  var subscription: String
 
   var body: some View {
     VStack(spacing: 5) {
@@ -78,16 +79,8 @@ struct JournalCard: View {
         .frame(maxWidth: .infinity, alignment: .center)
 
       if subtitle.isEmpty {
-        if index == 0 {
-          Text("오늘 하루는 어땠나요?")
-            .foregroundColor(.gray)
-        } else if index == 1 {
-          Text("오늘 어떤일이 가장 좋았나요?")
-            .foregroundColor(.gray)
-        } else if index == 2 {
-          Text("오늘 나에게 하고 싶은 말이 있나요?")
-            .foregroundColor(.gray)
-        }
+        Text(subscription)
+          .foregroundColor(.gray)
       } else {
         Text(subtitle)
           .font(.body)
@@ -98,50 +91,5 @@ struct JournalCard: View {
     .frame(maxWidth: .infinity)
     .background(Color.gray.opacity(0.2))
     .cornerRadius(10)
-  }
-}
-
-struct EditorView: View {
-  enum FocusField {
-    case field
-  }
-
-  @State var selectedDate: Date
-  @Binding var journal: Journal
-  @Environment(\.presentationMode) var presentationMode
-  @FocusState var focusedField: FocusField?
-
-  var body: some View {
-    VStack {
-      TextEditor(text: $journal.subtitle)
-        .focused($focusedField, equals: .field)
-        .onAppear {
-          DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.focusedField = .field
-          }
-        }
-        .padding()
-      
-      Button("저장하기") {
-        presentationMode.wrappedValue.dismiss()
-      }
-      .padding()
-    }
-    .onDisappear {
-      let jounals = readJournals()
-      var newJournals = jounals
-      let newJournal = Journal(index: $journal.index.wrappedValue, title: $journal.title.wrappedValue, subtitle: $journal.subtitle.wrappedValue)
-
-      for (index, jounal) in jounals.enumerated() {
-        if areDatesOnSameDay(jounal.date, selectedDate) {
-          var originJournals = jounal.journals
-          originJournals[$journal.index.wrappedValue] = newJournal
-          newJournals[index].journals = originJournals
-          break
-        }
-      }
-
-      saveJournal(journals: newJournals)
-    }
   }
 }
