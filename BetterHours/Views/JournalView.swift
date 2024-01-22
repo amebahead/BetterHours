@@ -23,8 +23,7 @@ struct JournalView: View {
             JournalCard(title: journals[index].title, subtitle: journals[index].subtitle, index: journals[index].index)
               .onTapGesture {
                 self.selectedjournal = journals[index]
-              }
-              .disabled(!areDatesNotFutureDay(selectedDate, Date.today()))   // Policy: 하루 기록은 오늘이나 과거만 기록 가능
+              }   
           }
         }
         .padding()

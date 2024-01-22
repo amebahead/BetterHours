@@ -59,8 +59,11 @@ struct TimeEventView: View {
               }
             }
 
-          NavigationLink(destination: JournalView(selectedDate: selectedDate, analysisEvents: $analysisEvents)) {
-            Text("하루 기록")
+          // Policy: 하루 기록은 오늘이나 과거만 기록 가능
+          if areDatesNotFutureDay(selectedDate, Date.today()) {
+            NavigationLink(destination: JournalView(selectedDate: selectedDate, analysisEvents: $analysisEvents)) {
+              Text("하루 기록")
+            }
           }
         }
       } else {
