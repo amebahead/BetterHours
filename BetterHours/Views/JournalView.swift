@@ -63,6 +63,11 @@ struct JournalView: View {
       self.journals = this
     }
     .navigationTitle("하루 기록")
+    .toolbar {
+      ToolbarItemGroup(placement: .status) {
+        Text(selectedDate.dateString())
+      }
+    }
   }
 }
 
