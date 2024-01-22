@@ -124,27 +124,25 @@ struct EditorView: View {
         .padding()
       
       Button("저장하기") {
-        let jounals = readJournals()
-        var newJournals = jounals
-        let newJournal = Journal(index: $journal.index.wrappedValue, title: $journal.title.wrappedValue, subtitle: $journal.subtitle.wrappedValue)
-
-        for (index, jounal) in jounals.enumerated() {
-          if areDatesOnSameDay(jounal.date, selectedDate) {
-            var originJournals = jounal.journals
-            originJournals[$journal.index.wrappedValue] = newJournal
-            newJournals[index].journals = originJournals
-            break
-          }
-        }
-
-        saveJournal(journals: newJournals)
         presentationMode.wrappedValue.dismiss()
       }
       .padding()
     }
-  }
-}
+    .onDisappear {
+      let jounals = readJournals()
+      var newJournals = jounals
+      let newJournal = Journal(index: $journal.index.wrappedValue, title: $journal.title.wrappedValue, subtitle: $journal.subtitle.wrappedValue)
 
-// MARK: Functions
-extension JournalView {
+      for (index, jounal) in jounals.enumerated() {
+        if areDatesOnSameDay(jounal.date, selectedDate) {
+          var originJournals = jounal.journals
+          originJournals[$journal.index.wrappedValue] = newJournal
+          newJournals[index].journals = originJournals
+          break
+        }
+      }
+
+      saveJournal(journals: newJournals)
+    }
+  }
 }
