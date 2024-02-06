@@ -21,6 +21,9 @@ struct TimeEventView: View {
   @State private var goal: String = ""
   @FocusState private var isTextFieldFocused: Bool
 
+  @State private var isInitialLaunch: String? = UserDefaults.standard.string(forKey: "UserEmail")
+  @State private var showingInitialPopup: Bool = false
+
   let hourHeight: CGFloat = 50.0
   let lineHeight: CGFloat = 1.0
 
@@ -149,13 +152,25 @@ struct TimeEventView: View {
         })
       }
       ToolbarItemGroup(placement: .navigationBarTrailing) {
-        NavigationLink(destination: SettingsView()) {
+        NavigationLink(destination: CardDeckView()) {
           Text("활동 카드 덱")
+        }
+        NavigationLink(destination: SettingsView()) {
+          Image(systemName: "gearshape")
+            .imageScale(.medium)
+            .foregroundColor(.blue)
         }
       }
     }
     .onAppear {
+      if isInitialLaunch == nil {
+        isInitialLaunch = ""
+        showingInitialPopup = true
+      }
       updateData(selectedDate)
+    }
+    .sheet(isPresented: $showingInitialPopup) {
+      InputPopupView(inputText: "", isPresented: $showingInitialPopup)
     }
   }
 }

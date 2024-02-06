@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D3534832B71C1DA00D83653 /* EditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3534822B71C1DA00D83653 /* EditorView.swift */; };
+		4D3534852B71C45A00D83653 /* InputPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3534842B71C45A00D83653 /* InputPopupView.swift */; };
+		4D3534872B71C90800D83653 /* CardDeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3534862B71C90800D83653 /* CardDeckView.swift */; };
 		4D708FCA2AE7A066006D2085 /* BetterHour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D708FC92AE7A066006D2085 /* BetterHour.swift */; };
 		4D708FCC2AE7A117006D2085 /* EventIdenty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D708FCB2AE7A117006D2085 /* EventIdenty.swift */; };
 		4D84DAA52B29AE260059F27D /* GoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D84DAA42B29AE260059F27D /* GoalView.swift */; };
@@ -31,6 +34,9 @@
 
 /* Begin PBXFileReference section */
 		30AC3B442185814113464549 /* Pods-BetterHours.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BetterHours.release.xcconfig"; path = "Target Support Files/Pods-BetterHours/Pods-BetterHours.release.xcconfig"; sourceTree = "<group>"; };
+		4D3534822B71C1DA00D83653 /* EditorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorView.swift; sourceTree = "<group>"; };
+		4D3534842B71C45A00D83653 /* InputPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputPopupView.swift; sourceTree = "<group>"; };
+		4D3534862B71C90800D83653 /* CardDeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDeckView.swift; sourceTree = "<group>"; };
 		4D708FC92AE7A066006D2085 /* BetterHour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetterHour.swift; sourceTree = "<group>"; };
 		4D708FCB2AE7A117006D2085 /* EventIdenty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventIdenty.swift; sourceTree = "<group>"; };
 		4D84DAA42B29AE260059F27D /* GoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalView.swift; sourceTree = "<group>"; };
@@ -119,6 +125,7 @@
 		72911D3D2AA05E560090FE60 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4D3534822B71C1DA00D83653 /* EditorView.swift */,
 				72911D3F2AA05F1E0090FE60 /* DailyEventView.swift */,
 				72911D412AA064A00090FE60 /* TimeEventView.swift */,
 				72911D432AA071980090FE60 /* EventPickerView.swift */,
@@ -126,6 +133,8 @@
 				4DE5CDA72B206FC600D4A1E6 /* AnalysisEventView.swift */,
 				4D84DAA42B29AE260059F27D /* GoalView.swift */,
 				4D84DAA62B29B4090059F27D /* JournalView.swift */,
+				4D3534842B71C45A00D83653 /* InputPopupView.swift */,
+				4D3534862B71C90800D83653 /* CardDeckView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -275,6 +284,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				72C03B352AEF892C003BDFD1 /* UserDefaults+Extensions.swift in Sources */,
+				4D3534872B71C90800D83653 /* CardDeckView.swift in Sources */,
 				724ADDD72AA08E510032E61F /* Colors+Extensions.swift in Sources */,
 				4D84DAA72B29B4090059F27D /* JournalView.swift in Sources */,
 				72C03B312AEF75A0003BDFD1 /* Date+Extensions.swift in Sources */,
@@ -283,7 +293,9 @@
 				724ADDD42AA087B10032E61F /* SettingsView.swift in Sources */,
 				72C03B332AEF88D3003BDFD1 /* Goal.swift in Sources */,
 				4D84DAA52B29AE260059F27D /* GoalView.swift in Sources */,
+				4D3534832B71C1DA00D83653 /* EditorView.swift in Sources */,
 				72393FFE2B2FE17800209B5E /* Journal.swift in Sources */,
+				4D3534852B71C45A00D83653 /* InputPopupView.swift in Sources */,
 				4D708FCA2AE7A066006D2085 /* BetterHour.swift in Sources */,
 				4D708FCC2AE7A117006D2085 /* EventIdenty.swift in Sources */,
 				72911D402AA05F1E0090FE60 /* DailyEventView.swift in Sources */,
