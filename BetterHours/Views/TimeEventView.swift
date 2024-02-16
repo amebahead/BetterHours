@@ -210,6 +210,9 @@ extension TimeEventView {
     var isSetGoal = false
     let sortedGoals = goals.sorted(by: { $0.date > $1.date })   // 내림차순
 
+    print(Date.today())
+    print(selectedDate)
+
     for goal in sortedGoals {
       if areDatesOnSameDay(goal.date, selectedDate) {
         self.goal = goal.text
@@ -220,16 +223,17 @@ extension TimeEventView {
 
     if isSetGoal == false {
       switch selectedDate.compare(Date.today()) {
-        // 미래
+        // 미래인 경우
       case .orderedDescending:
-        self.goal = sortedGoals.first?.text ?? ""
+        self.goal = sortedGoals.first?.text ?? "미래"
         break
-        // 과거
+        // 과거인 경우
       case .orderedAscending:
-        if areDatesOnSameDay(Date.today(), selectedDate) {
-          self.goal = sortedGoals.first?.text ?? ""
-        } else {
-          self.goal = ""
+        for goal in sortedGoals {
+          if areDatesOnSameDay(goal.date, selectedDate) {
+            self.goal = goal.text
+            break
+          }
         }
         break
       case .orderedSame:

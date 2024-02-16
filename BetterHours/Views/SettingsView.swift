@@ -13,7 +13,7 @@ struct SettingsView: View {
     VStack {
       // 이메일 정보 표시
       Text(UserDefaults.standard.string(forKey: "UserEmail") ?? "")
-        .foregroundStyle(.white)
+        .foregroundStyle(.primary)
         .padding()
 
       // 백업하기 버튼
