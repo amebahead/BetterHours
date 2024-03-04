@@ -29,7 +29,7 @@ struct EditorView: View {
           }
           .padding()
 
-        Button("저장하기") {
+        Button("save") {
           presentationMode.wrappedValue.dismiss()
         }
         .padding()

@@ -62,10 +62,10 @@ struct JournalView: View {
       }
       self.journals = this
     }
-    .navigationTitle("하루 기록")
+    .navigationTitle("dailyJouranling")
     .toolbar {
       ToolbarItemGroup(placement: .status) {
-        Text(selectedDate.dateString())
+        Text(selectedDate.dateString(String(NSLocalizedString("dateString", comment: ""))))
       }
     }
   }

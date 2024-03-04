@@ -30,6 +30,7 @@
 		72C03B312AEF75A0003BDFD1 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C03B302AEF75A0003BDFD1 /* Date+Extensions.swift */; };
 		72C03B332AEF88D3003BDFD1 /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C03B322AEF88D3003BDFD1 /* Goal.swift */; };
 		72C03B352AEF892C003BDFD1 /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C03B342AEF892C003BDFD1 /* UserDefaults+Extensions.swift */; };
+		72DF4D032B95A6D200F361C4 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 72DF4D022B95A6D200F361C4 /* Localizable.xcstrings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +58,7 @@
 		72C03B302AEF75A0003BDFD1 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		72C03B322AEF88D3003BDFD1 /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
 		72C03B342AEF892C003BDFD1 /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
+		72DF4D022B95A6D200F361C4 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		836D024EB16D1788537EA87E /* Pods-BetterHours.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BetterHours.debug.xcconfig"; path = "Target Support Files/Pods-BetterHours/Pods-BetterHours.debug.xcconfig"; sourceTree = "<group>"; };
 		F808F0C555B20686F0DFC0C6 /* Pods_BetterHours.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BetterHours.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -107,6 +109,7 @@
 				724ADDD52AA08E370032E61F /* Utils */,
 				72911D3D2AA05E560090FE60 /* Views */,
 				72911D3E2AA05E690090FE60 /* Models */,
+				72DF4D012B95A6A700F361C4 /* Resources */,
 				72911D2F2AA03D1E0090FE60 /* BetterHoursApp.swift */,
 				72911D332AA03D1F0090FE60 /* Assets.xcassets */,
 				72911D352AA03D1F0090FE60 /* Preview Content */,
@@ -150,6 +153,14 @@
 				72393FFD2B2FE17800209B5E /* Journal.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		72DF4D012B95A6A700F361C4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				72DF4D022B95A6D200F361C4 /* Localizable.xcstrings */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		C325C3F6A35622E5B5D62D4B /* Frameworks */ = {
@@ -212,7 +223,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
+				ko,
 			);
 			mainGroup = 72911D232AA03D1E0090FE60;
 			productRefGroup = 72911D2D2AA03D1E0090FE60 /* Products */;
@@ -231,6 +242,7 @@
 			files = (
 				72911D372AA03D1F0090FE60 /* Preview Assets.xcassets in Resources */,
 				72911D342AA03D1F0090FE60 /* Assets.xcassets in Resources */,
+				72DF4D032B95A6D200F361C4 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

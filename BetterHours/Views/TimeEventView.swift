@@ -34,7 +34,6 @@ struct TimeEventView: View {
         DatePicker("", selection: $selectedDate, displayedComponents: .date)
           .datePickerStyle(.graphical)
           .accentColor(.red)
-          .environment(\.locale, Locale.init(identifier: "ko_KR"))
           .onChange(of: selectedDate) { newDate in
             isShowingDatePicker.toggle()
             updateData(newDate)
@@ -44,7 +43,7 @@ struct TimeEventView: View {
       // Goals
       if #available(iOS 16, *) {
         HStack {
-          TextField("현재 목표", text: $goal, axis: .vertical)
+          TextField("currentGoal", text: $goal, axis: .vertical)
             .font(.title3)
             .onChange(of: goal) { newValue in
               if goal.count >= 200 {
@@ -55,7 +54,7 @@ struct TimeEventView: View {
             .disabled(!areDatesOnSameDay(selectedDate, Date.today()))   // Policy: 현재 목표는 '오늘' 시점에만 입력 가능
             .toolbar {
               ToolbarItem(placement: .keyboard) {
-                Button("완료하기") {
+                Button("done") {
                   isTextFieldFocused = false
                   setGoals(goal)
                 }
@@ -65,13 +64,13 @@ struct TimeEventView: View {
           // Policy: 하루 기록은 오늘이나 과거만 기록 가능
           if areDatesNotFutureDay(selectedDate, Date.today()) {
             NavigationLink(destination: JournalView(selectedDate: selectedDate, analysisEvents: $analysisEvents)) {
-              Text("하루 기록")
+              Text("dailyJouranling")
             }
           }
         }
       } else {
         HStack {
-          TextField("현재 목표", text: $goal)
+          TextField("currentGoal", text: $goal)
             .font(.title3)
             .onChange(of: goal) { newValue in
               if goal.count >= 200 {
@@ -82,7 +81,7 @@ struct TimeEventView: View {
             .disabled(!areDatesOnSameDay(selectedDate, Date.today()))   // Policy: 현재 목표는 '오늘' 시점에만 입력 가능
             .toolbar {
               ToolbarItem(placement: .keyboard) {
-                Button("완료하기") {
+                Button("done") {
                   isTextFieldFocused = false
                   setGoals(goal)
                 }
@@ -90,7 +89,7 @@ struct TimeEventView: View {
             }
 
           NavigationLink(destination: JournalView(selectedDate: selectedDate, analysisEvents: $analysisEvents)) {
-            Text("하루 기록")
+            Text("dailyJouranling")
           }
         }
       }
@@ -148,12 +147,12 @@ struct TimeEventView: View {
         Button(action: {
           isShowingDatePicker.toggle()
         }, label: {
-          Text(selectedDate.dateString())
+          Text(selectedDate.dateString(String(NSLocalizedString("dateString", comment: ""))))
         })
       }
       ToolbarItemGroup(placement: .navigationBarTrailing) {
         NavigationLink(destination: CardDeckView()) {
-          Text("활동 카드 덱")
+          Text("actionCardDeck")
         }
         NavigationLink(destination: SettingsView()) {
           Image(systemName: "gearshape")

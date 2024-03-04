@@ -24,9 +24,9 @@ struct CardDeckView: View {
       VStack {
         Form {
           // 카테고리 선택 Picker
-          Picker("카테고리", selection: $selectedCategory) {
+          Picker("category", selection: $selectedCategory) {
             ForEach(Category.allCases) { category in
-              Text(category.rawValue).tag(category)
+              Text(category.title).tag(category)
             }
           }
           // 상세 내용 입력 TextEditor
@@ -35,7 +35,7 @@ struct CardDeckView: View {
             .focused($isTextFieldFocused)
             .toolbar {
               ToolbarItem(placement: .keyboard) {
-                Button("완료하기") {
+                Button("done") {
                   isTextFieldFocused = false
                 }
               }
@@ -48,7 +48,7 @@ struct CardDeckView: View {
               }
             }
         }
-        .navigationBarItems(trailing: Button("저장") {
+        .navigationBarItems(trailing: Button("save") {
           guard !detail.isEmpty else { return }
           var events = readEvents()
           events.append(Event(category: selectedCategory, detail: detail))
@@ -80,7 +80,7 @@ struct CardDeckView: View {
                 events.remove(at: index)
                 saveEvents(events: events)
               }, label: {
-                Label("삭제", systemImage: "trash")
+                Label("remove", systemImage: "trash")
               })
             }
           }

@@ -77,7 +77,7 @@ struct EventPickerView: View {
             }
           }
         } label: {
-          Text("삭제")
+          Text("remove")
             .font(.headline)
             .foregroundColor(.primary)
             .frame(maxWidth: .infinity, alignment: .center)

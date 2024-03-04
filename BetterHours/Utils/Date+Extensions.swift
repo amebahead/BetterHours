@@ -12,12 +12,11 @@ extension Date {
     return Date()
   }
 
-  func dateString() -> String {
+  func dateString(_ format: String) -> String {
     let koreaTimeZone = TimeZone(identifier: "Asia/Seoul")
     let formatter = DateFormatter()
-    formatter.dateFormat = "yyyy년 MM월 dd일 (EE)"
+    formatter.dateFormat = format
     formatter.timeZone = koreaTimeZone
-    formatter.locale = Locale(identifier: "ko_KR")
 
     return formatter.string(from: self)
   }

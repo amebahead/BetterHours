@@ -22,7 +22,7 @@ struct InputPopupView: View {
         UserDefaults.standard.set(self.inputText, forKey: "UserEmail")
         isPresented = false
       }) {
-        Text("등록")
+        Text("register")
           .foregroundStyle(.primary)
           .padding()
           .frame(maxWidth: .infinity)

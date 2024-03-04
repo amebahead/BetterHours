@@ -8,17 +8,17 @@
 import SwiftUI
 
 enum Category: String, CaseIterable, Identifiable, Codable {
-  case life = "생활"
-  case work = "일"
-  case learn = "학습"
-  case exercise = "운동"
-  case leisure = "여가"
-  case meeting = "모임"
-  case etc = "기타"
-  case sleep = "잠"
+  case life = "houseWork"
+  case work = "work"
+  case learn = "learning"
+  case exercise = "workout"
+  case leisure = "freeTime"
+  case meeting = "meeting"
+  case etc = "others"
+  case sleep = "sleep"
 
   var title: String {
-    rawValue
+    String(NSLocalizedString(rawValue, comment: ""))
   }
 
   var id: String {
