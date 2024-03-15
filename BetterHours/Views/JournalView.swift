@@ -35,9 +35,9 @@ struct JournalView: View {
     .onAppear {
       let journals = readJournals()
       var this: [Journal] = [
-        Journal(index: 0, title: "오늘 회고", subtitle: ""),
-        Journal(index: 1, title: "가장 좋았던 일", subtitle: ""),
-        Journal(index: 2, title: "스스로에게 한 마디", subtitle: "")
+        Journal(index: 0, title: "todayRetrospective", subtitle: ""),
+        Journal(index: 1, title: "bestAppreciation", subtitle: ""),
+        Journal(index: 2, title: "wordToMyself", subtitle: "")
       ]
 
       if journals.isEmpty {
@@ -62,7 +62,7 @@ struct JournalView: View {
       }
       self.journals = this
     }
-    .navigationTitle("dailyJouranling")
+    .navigationTitle("dailyJournaling")
     .toolbar {
       ToolbarItemGroup(placement: .status) {
         Text(selectedDate.dateString(String(NSLocalizedString("dateString", comment: ""))))
@@ -79,7 +79,7 @@ struct JournalCard: View {
 
   var body: some View {
     VStack(spacing: 5) {
-      Text(title)
+      Text(NSLocalizedString(title, comment: ""))
         .font(.headline)
         .frame(maxWidth: .infinity, alignment: .center)
 

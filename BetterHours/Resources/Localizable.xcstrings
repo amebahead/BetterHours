@@ -50,6 +50,23 @@
         }
       }
     },
+    "bestAppreciation" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Best appreciation"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "가장 좋았던 일"
+          }
+        }
+      }
+    },
     "calendar" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -118,18 +135,18 @@
         }
       }
     },
-    "dailyJouranling" : {
+    "dailyJournaling" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Daily Jouranling"
+            "value" : "Daily Journaling"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "하루 기록"
           }
         }
@@ -212,13 +229,30 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "HouseWork"
+            "value" : "Daily living"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "생활"
+          }
+        }
+      }
+    },
+    "howIsToday" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How is today?"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "오늘 하루는 어땠나요?"
           }
         }
       }
@@ -246,12 +280,12 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Meeting"
+            "value" : "Gathering"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "모임"
           }
         }
@@ -342,6 +376,23 @@
         }
       }
     },
+    "saved" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saved"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "활동 카드가 저장되었습니다."
+          }
+        }
+      }
+    },
     "sleep" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -372,6 +423,74 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "시간 블록"
+          }
+        }
+      }
+    },
+    "todayRetrospective" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Today's retrospective"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "오늘 회고"
+          }
+        }
+      }
+    },
+    "whatDoIWantToSayToMeToday" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What do I want to say to me today?"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "오늘 나에게 하고 싶은 말이 있나요?"
+          }
+        }
+      }
+    },
+    "whatIsTheBestThingForYouToday" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What is the best thing for you today?"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "오늘 어떤일이 가장 좋았나요?"
+          }
+        }
+      }
+    },
+    "wordToMyself" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A word to myself"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "스스로에게 한 마디"
           }
         }
       }

@@ -14,11 +14,11 @@ struct Journal: Identifiable, Equatable, Codable {
   var subtitle: String
   var subscription: String {
     if index == 0 {
-      return "오늘 하루는 어땠나요?"
+      return NSLocalizedString("howIsToday", comment: "")
     } else if index == 1 {
-      return "오늘 어떤일이 가장 좋았나요?"
+      return NSLocalizedString("whatIsTheBestThingForYouToday", comment: "")
     } else if index == 2 {
-      return "오늘 나에게 하고 싶은 말이 있나요?"
+      return NSLocalizedString("whatDoIWantToSayToMeToday", comment: "")
     }
     return ""
   }

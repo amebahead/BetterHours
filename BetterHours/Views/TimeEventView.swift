@@ -64,7 +64,7 @@ struct TimeEventView: View {
           // Policy: 하루 기록은 오늘이나 과거만 기록 가능
           if areDatesNotFutureDay(selectedDate, Date.today()) {
             NavigationLink(destination: JournalView(selectedDate: selectedDate, analysisEvents: $analysisEvents)) {
-              Text("dailyJouranling")
+              Text("dailyJournaling")
             }
           }
         }
@@ -89,7 +89,7 @@ struct TimeEventView: View {
             }
 
           NavigationLink(destination: JournalView(selectedDate: selectedDate, analysisEvents: $analysisEvents)) {
-            Text("dailyJouranling")
+            Text("dailyJournaling")
           }
         }
       }
