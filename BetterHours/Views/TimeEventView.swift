@@ -224,15 +224,21 @@ extension TimeEventView {
       switch selectedDate.compare(Date.today()) {
         // 미래인 경우
       case .orderedDescending:
-        self.goal = sortedGoals.first?.text ?? "미래"
+        self.goal = sortedGoals.first?.text ?? ""
         break
         // 과거인 경우
       case .orderedAscending:
+        var isSet = false
         for goal in sortedGoals {
-          if areDatesOnSameDay(goal.date, selectedDate) {
+          switch selectedDate.compare(goal.date) {
+            // 미래
+          case .orderedDescending:
             self.goal = goal.text
-            break
+            isSet = true
+          default:
+            self.goal = ""
           }
+          if isSet { break }
         }
         break
       case .orderedSame:
